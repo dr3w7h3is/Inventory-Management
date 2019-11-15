@@ -140,15 +140,15 @@ function App() {
       <div class="main-body w3-container w3-dark-grey w3-padding-32">
         <div class="w3-row">
           <div class="w3-container w3-third">
-            <h5 class="w3-bottombar border-green">Demographic</h5>
+            <h5 class="w3-bottombar border-red">Demographic</h5>
             <p>Language</p>
           </div>
           <div class="w3-container w3-third">
-            <h5 class="w3-bottombar border-red">System</h5>
+            <h5 class="w3-bottombar border-blue">System</h5>
             <p>Browser</p>
           </div>
           <div class="w3-container w3-third">
-            <h5 class="w3-bottombar border-orange">Target</h5>
+            <h5 class="w3-bottombar border-green">Target</h5>
             <p>Users</p>
           </div>
         </div>
