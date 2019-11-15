@@ -198,6 +198,9 @@ a{
 .main-body{
   margin-left: 200px;
 }
+.icon-black{
+	color: #000;
+}
 .w3-table,.w3-table-all{
 	border-collapse:collapse;
 	border-spacing:0;
@@ -374,7 +377,7 @@ a{
 .w3-main,#main{
   transition:margin-left .4s;
   margin-top: 20px;
-  margin-left: 250px;
+  margin-left: 200px;
 }
 .w3-modal{
 	z-index:3;

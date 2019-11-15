@@ -29,10 +29,10 @@ function App() {
           <h5>
             <b>
               <span class="fa-stack fa-lg">
-                <i class="fa fa-square fa-stack-2x"></i>
+                <i class="fa fa-square fa-stack-2x icon-black"></i>
                 <i class="fa fa-terminal fa-stack-1x fa-inverse"></i>
               </span>
-              INV-NOW
+              INV-MAN
             </b>
           </h5>
         </header>
@@ -73,10 +73,11 @@ function App() {
       </div>
       <hr></hr>
       <div class="main-body w3-container">
-        <h5>Statistics</h5>
+        <h5>Inventory</h5>
           <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
             <tr>
               <td>Control Number</td>
+              <td>Nomenclature</td>
               <td>Manufacture</td>
               <td>Model</td>
               <td>Serial Number</td>
@@ -87,6 +88,7 @@ function App() {
             </tr>
             <tr>
               <td>1</td>
+              <td>Router</td>
               <td>Cisco</td>
               <td>3945e</td>
               <td>FCSD012393823</td>
@@ -97,6 +99,7 @@ function App() {
             </tr>
             <tr>
               <td>2</td>
+              <td>Switch</td>
               <td>Cisco</td>
               <td>3750X</td>
               <td>FOC736010837</td>
@@ -107,6 +110,7 @@ function App() {
             </tr>
             <tr>
               <td>3</td>
+              <td>Capture Device</td>
               <td>ACME</td>
               <td>Netpac</td>
               <td>0010</td>
