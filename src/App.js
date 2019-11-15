@@ -5,7 +5,6 @@ function App() {
   return (
   <body class="w3-dark-grey">
     <div class="w3-bar w3-top w3-black w3-large">
-      <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey"><i class="fa fa-bars"></i>  Menu</button>
       <span class="w3-bar-item w3-right">MCTSSA</span>
     </div>
     <nav class="w3-sidebar w3-collapse w3-light-gray w3-animate-left" id="mySidebar"><br></br>
@@ -13,7 +12,6 @@ function App() {
         <h5>Dashboard</h5>
       </div>
       <div class="w3-bar-block">
-        <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
         <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-home fa-fw"></i>  Home</a>
         <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Sections</a>
         <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Personel</a>
@@ -55,7 +53,7 @@ function App() {
         </div>
       </div>
       <div class="w3-quarter">
-        <div class="w3-container w3-teal w3-padding-16">
+        <div class="w3-container w3-green w3-padding-16">
           <div class="w3-left"><i class="fa fa-wrench w3-xxxlarge"></i></div>
           <div id="eduCount" class="w3-right"></div>
           <div class="w3-clear"></div>
