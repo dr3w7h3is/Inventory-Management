@@ -1,0 +1,39 @@
+{
+    "database": {
+        "item": [
+            {
+                "ctrl_num": "1",
+                "nomenclature": "Router",
+                "manufacture": "Cisco",
+                "model": "3945e",
+                "serial_num": "FSC56556895",
+                "ownership": "MCNEL",
+                "current": "Jimmy Gibson",
+                "location": "57 Lab",
+                "description": "A brief listing of things about the item"
+            },
+            {
+                "ctrl_num": "2",
+                "nomenclature": "Switch",
+                "manufacture": "Cisco",
+                "model": "3750X",
+                "serial_num": "FOC736010837",
+                "ownership": "MCNEL",
+                "current": "Jimmy Gibson",
+                "location": "57 Lab",
+                "description": "A brief listing of things about the item"
+            },
+            {
+                "ctrl_num": "3",
+                "nomenclature": "Capture Device",
+                "manufacture": "ACME",
+                "model": "Netpac",
+                "serial_num": "00100221",
+                "ownership": "MCNEL",
+                "current": "Marcus Rogers",
+                "location": "Building 31343",
+                "description": "A brief listing of things about the item"
+            }
+        ]
+    }
+}
