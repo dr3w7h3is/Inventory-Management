@@ -100,36 +100,36 @@ function App() {
             <td>Description</td>
           </tr>
           <tr>
-          <td>{ data.database.item[0].ctrl_num }</td>
-          <td>{ data.database.item[0].nomenclature }</td>
-          <td>{ data.database.item[0].manufacture }</td>
-          <td>{ data.database.item[0].model }</td>
-          <td>{ data.database.item[0].serial_num }</td>
-          <td>{ data.database.item[0].ownership }</td>
-          <td>{ data.database.item[0].current }</td>
-          <td>{ data.database.item[0].location }</td>
-          <td>more...</td>
+            <td>{ data.database.item[0].ctrl_num }</td>
+            <td>{ data.database.item[0].nomenclature }</td>
+            <td>{ data.database.item[0].manufacture }</td>
+            <td>{ data.database.item[0].model }</td>
+            <td>{ data.database.item[0].serial_num }</td>
+            <td>{ data.database.item[0].ownership }</td>
+            <td>{ data.database.item[0].current }</td>
+            <td>{ data.database.item[0].location }</td>
+            <td>more...</td>
           </tr>
           <tr>
-          <td>{ data.database.item[1].ctrl_num }</td>
-          <td>{ data.database.item[1].nomenclature }</td>
-          <td>{ data.database.item[1].manufacture }</td>
-          <td>{ data.database.item[1].model }</td>
-          <td>{ data.database.item[1].serial_num }</td>
-          <td>{ data.database.item[1].ownership }</td>
-          <td>{ data.database.item[1].current }</td>
-          <td>{ data.database.item[1].location }</td>
-          <td>more...</td>
+            <td>{ data.database.item[1].ctrl_num }</td>
+            <td>{ data.database.item[1].nomenclature }</td>
+            <td>{ data.database.item[1].manufacture }</td>
+            <td>{ data.database.item[1].model }</td>
+            <td>{ data.database.item[1].serial_num }</td>
+            <td>{ data.database.item[1].ownership }</td>
+            <td>{ data.database.item[1].current }</td>
+            <td>{ data.database.item[1].location }</td>
+            <td>more...</td>
           </tr>
           <tr>
-          <td>{ data.database.item[2].ctrl_num }</td>
-          <td>{ data.database.item[2].nomenclature }</td>
-          <td>{ data.database.item[2].manufacture }</td>
-          <td>{ data.database.item[2].model }</td>
-          <td>{ data.database.item[2].serial_num }</td>
-          <td>{ data.database.item[2].ownership }</td>
-          <td>{ data.database.item[2].current }</td>
-          <td>{ data.database.item[2].location }</td>
+            <td>{ data.database.item[2].ctrl_num }</td>
+            <td>{ data.database.item[2].nomenclature }</td>
+            <td>{ data.database.item[2].manufacture }</td>
+            <td>{ data.database.item[2].model }</td>
+            <td>{ data.database.item[2].serial_num }</td>
+            <td>{ data.database.item[2].ownership }</td>
+            <td>{ data.database.item[2].current }</td>
+            <td>{ data.database.item[2].location }</td>
           <td>more...</td>
           </tr>
           </tbody>
