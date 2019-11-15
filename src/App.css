@@ -373,7 +373,7 @@ a{
 }
 .w3-main,#main{
   transition:margin-left .4s;
-  margin-top: 43px;
+  margin-top: 20px;
   margin-left: 250px;
 }
 .w3-modal{
