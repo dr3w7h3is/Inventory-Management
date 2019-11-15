@@ -87,18 +87,20 @@ function App() {
     <div class="main-body w3-container">
       <h5>Inventory</h5>
         <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
-          <tbody>
+          <thead>
           <tr>
-            <td>Control Number</td>
-            <td>Nomenclature</td>
-            <td>Manufacture</td>
-            <td>Model</td>
-            <td>Serial Number</td>
-            <td>Ownership</td>
-            <td>Current Possesion</td>
-            <td>Location</td>
-            <td>Description</td>
+            <th>Control Number</th>
+            <th>Nomenclature</th>
+            <th>Manufacture</th>
+            <th>Model</th>
+            <th>Serial Number</th>
+            <th>Ownership</th>
+            <th>Current Possesion</th>
+            <th>Location</th>
+            <th>Description</th>
           </tr>
+          </thead>
+          <tbody>
           <tr>
             <td>{ data.database.item[0].ctrl_num }</td>
             <td>{ data.database.item[0].nomenclature }</td>
