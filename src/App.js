@@ -2,6 +2,9 @@ import React from 'react';
 import './App.css';
 import data from './test-data.json';
 
+const inNum = 43;
+const outNum = 62;
+
 function App() {
   return (
   <div>
@@ -41,8 +44,8 @@ function App() {
         <div class="w3-container w3-red w3-padding-16">
           <div class="w3-left w3-half"><i class="fa fa-cloud-download w3-xxxlarge"></i></div>
           <div class="w3-left">
-            <h6>IN:</h6>
-            <h6>OUT:</h6>
+            <h6>IN: { inNum }</h6>
+            <h6>OUT: { outNum }</h6>
           </div>
           <div class="w3-clear">
           <h4>Network Equipment</h4>
@@ -53,8 +56,8 @@ function App() {
         <div class="w3-container w3-blue w3-padding-16">
           <div class="w3-left w3-half"><i class="fa fa-microchip w3-xxxlarge"></i></div>
           <div class="w3-left">
-            <h6>IN:</h6>
-            <h6>OUT:</h6>
+            <h6>IN: { inNum }</h6>
+            <h6>OUT: { outNum }</h6>
           </div>
           <div class="w3-clear"></div>
           <h4>Servers</h4>
@@ -64,8 +67,8 @@ function App() {
         <div class="w3-container w3-green w3-padding-16">
           <div class="w3-left w3-half"><i class="fa fa-wrench w3-xxxlarge"></i></div>
           <div class="w3-left">
-            <h6>IN:</h6>
-            <h6>OUT:</h6>
+            <h6>IN: { inNum }</h6>
+            <h6>OUT: { outNum }</h6>
           </div>
           <div class="w3-clear"></div>
           <h4>Test Tools</h4>
@@ -75,8 +78,8 @@ function App() {
         <div class="w3-container w3-orange text-white w3-padding-16">
           <div class="w3-left w3-half"><i class="fa fa-users w3-xxxlarge"></i></div>
           <div class="w3-left">
-            <h6>IN:</h6>
-            <h6>OUT:</h6>
+            <h6>IN: { inNum }</h6>
+            <h6>OUT: { outNum }</h6>
           </div>
           <div class="w3-clear"></div>
           <h4>Simulation Equipment</h4>
