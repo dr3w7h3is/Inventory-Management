@@ -59,7 +59,8 @@ img{
 	vertical-align:middle
 }
 a{
-	color:inherit
+	color:inherit;
+	text-decoration: none;
 }
 .quick-look{
   margin-left: 200px;
@@ -461,19 +462,19 @@ a{
 	color:#fff!important;
 	background-color:#616161!important
 }
-.w3-text-white,.w3-hover-text-white:hover{
+.text-white,.w3-hover-text-white:hover{
 	color:#fff!important
 }
-.w3-text-black,.w3-hover-text-black:hover{
+.text-black,.w3-hover-text-black:hover{
 	color:#000!important
 }
 
-.w3-border-green,.w3-hover-border-green:hover{
+.border-green,.w3-hover-border-green:hover{
 	border-color:#4CAF50!important
 }
-.w3-border-orange,.w3-hover-border-orange:hover{
+.border-orange,.w3-hover-border-orange:hover{
 	border-color:#ff9800!important
 }
-.w3-border-red,.w3-hover-border-red:hover{
+.border-red,.hover-border-red:hover{
 	border-color:#f44336!important
 }

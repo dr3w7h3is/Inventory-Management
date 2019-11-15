@@ -38,32 +38,45 @@ function App() {
     <div class="quick-look w3-row-padding w3-margin-bottom">
       <div class="w3-quarter">
         <div class="w3-container w3-red w3-padding-16">
-          <div class="w3-left"><i class="fa fa-cloud-download w3-xxxlarge"></i></div>
-          <div id="movieCount" class="w3-right"></div>
-          <div class="w3-clear"></div>
+          <div class="w3-left w3-half"><i class="fa fa-cloud-download w3-xxxlarge"></i></div>
+          <div class="w3-left">
+            <h6>IN:</h6>
+            <h6>OUT:</h6>
+          </div>
+          <div class="w3-clear">
           <h4>Network Equipment</h4>
+          </div>
         </div>
       </div>
       <div class="w3-quarter">
         <div class="w3-container w3-blue w3-padding-16">
-          <div class="w3-left"><i class="fa fa-microchip w3-xxxlarge"></i></div>
-          <div id="tvCount" class="w3-right"></div>
+          <div class="w3-left w3-half"><i class="fa fa-microchip w3-xxxlarge"></i></div>
+          <div class="w3-left">
+            <h6>IN:</h6>
+            <h6>OUT:</h6>
+          </div>
           <div class="w3-clear"></div>
           <h4>Servers</h4>
         </div>
       </div>
       <div class="w3-quarter">
         <div class="w3-container w3-green w3-padding-16">
-          <div class="w3-left"><i class="fa fa-wrench w3-xxxlarge"></i></div>
-          <div id="eduCount" class="w3-right"></div>
+          <div class="w3-left w3-half"><i class="fa fa-wrench w3-xxxlarge"></i></div>
+          <div class="w3-left">
+            <h6>IN:</h6>
+            <h6>OUT:</h6>
+          </div>
           <div class="w3-clear"></div>
           <h4>Test Tools</h4>
         </div>
       </div>
       <div class="w3-quarter">
-        <div class="w3-container w3-orange w3-text-white w3-padding-16">
-          <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
-          <div id="userCount" class="w3-right"></div>
+        <div class="w3-container w3-orange text-white w3-padding-16">
+          <div class="w3-left w3-half"><i class="fa fa-users w3-xxxlarge"></i></div>
+          <div class="w3-left">
+            <h6>IN:</h6>
+            <h6>OUT:</h6>
+          </div>
           <div class="w3-clear"></div>
           <h4>Simulation Equipment</h4>
         </div>
@@ -124,15 +137,15 @@ function App() {
       <div class="main-body w3-container w3-dark-grey w3-padding-32">
         <div class="w3-row">
           <div class="w3-container w3-third">
-            <h5 class="w3-bottombar w3-border-green">Demographic</h5>
+            <h5 class="w3-bottombar border-green">Demographic</h5>
             <p>Language</p>
           </div>
           <div class="w3-container w3-third">
-            <h5 class="w3-bottombar w3-border-red">System</h5>
+            <h5 class="w3-bottombar border-red">System</h5>
             <p>Browser</p>
           </div>
           <div class="w3-container w3-third">
-            <h5 class="w3-bottombar w3-border-orange">Target</h5>
+            <h5 class="w3-bottombar border-orange">Target</h5>
             <p>Users</p>
           </div>
         </div>
