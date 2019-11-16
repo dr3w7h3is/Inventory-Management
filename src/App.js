@@ -1,9 +1,105 @@
 import React, {Component} from 'react';
+import { Link, Route, Switch } from 'react-router-dom';
 import './App.css';
 import data from './test-data.json';
 
 const inNum = 43;
 const outNum = 62;
+
+const Blank = () => (
+  <div>
+</div>
+)
+const Home = () => (
+  <div class="w3-center">
+    <h1>Sections</h1>
+  </div>
+)
+const Sections = () => (
+  <div class="w3-center">
+    <h1>Sections</h1>
+  </div>
+)
+const Personnel = () => (
+  <div class="w3-center">
+    <h1>Personnel</h1>
+  </div>
+)
+const Equipment = () => (
+  <div class="main-body w3-container">
+    <h5>Inventory</h5>
+    <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+      <thead>
+        <tr>
+          <th>Control Number</th>
+          <th>Nomenclature</th>
+          <th>Manufacture</th>
+          <th>Model</th>
+          <th>Serial Number</th>
+          <th>Ownership</th>
+          <th>Current Possesion</th>
+          <th>Location</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{ data.database.item[0].ctrl_num }</td>
+          <td>{ data.database.item[0].nomenclature }</td>
+          <td>{ data.database.item[0].manufacture }</td>
+          <td>{ data.database.item[0].model }</td>
+          <td>{ data.database.item[0].serial_num }</td>
+          <td>{ data.database.item[0].ownership }</td>
+          <td>{ data.database.item[0].current }</td>
+          <td>{ data.database.item[0].location }</td>
+          <td>more...</td>
+        </tr>
+        <tr>
+          <td>{ data.database.item[1].ctrl_num }</td>
+          <td>{ data.database.item[1].nomenclature }</td>
+          <td>{ data.database.item[1].manufacture }</td>
+          <td>{ data.database.item[1].model }</td>
+          <td>{ data.database.item[1].serial_num }</td>
+          <td>{ data.database.item[1].ownership }</td>
+          <td>{ data.database.item[1].current }</td>
+          <td>{ data.database.item[1].location }</td>
+          <td>more...</td>
+        </tr>
+        <tr>
+          <td>{ data.database.item[2].ctrl_num }</td>
+          <td>{ data.database.item[2].nomenclature }</td>
+          <td>{ data.database.item[2].manufacture }</td>
+          <td>{ data.database.item[2].model }</td>
+          <td>{ data.database.item[2].serial_num }</td>
+          <td>{ data.database.item[2].ownership }</td>
+          <td>{ data.database.item[2].current }</td>
+          <td>{ data.database.item[2].location }</td>
+        <td>more...</td>
+        </tr>
+      </tbody>
+    </table>
+  </div> 
+)
+const Calendar = () => (
+  <div class="w3-center">
+    <h1>Calendar</h1>
+  </div>
+)
+const Request = () => (
+  <div class="w3-center">
+    <h1>Request</h1>
+  </div>
+)
+const Manage = () => (
+  <div class="w3-center">
+    <h1>Manage</h1>
+  </div>
+)
+const Settings = () => (
+  <div class="w3-center">
+    <h1>Settings</h1>
+  </div>
+)
 
 class App extends Component {
   render() {
@@ -17,10 +113,10 @@ class App extends Component {
         <h5>Dashboard</h5>
       </div>
       <div class="w3-bar-block">
-        <a href="/" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-home fa-fw"></i>  Home</a >
-        <a href="/sections.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Sections</a>
+        <Link to="/" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-home fa-fw"></i>  Home</Link >
+        <Link to="/sections" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Sections</Link>
         <a href="/personnel" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-circle fa-fw"></i>  Personnel</a >
-        <a href="/equipment" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cubes fa-fw"></i>  Equipment</a >
+        <Link to="/equipment" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cubes fa-fw"></i>  Equipment</Link >
         <a href="/calendar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar fa-fw"></i>  Calendar</a >
         <a href="/request" class="w3-bar-item w3-button w3-padding"><i class="fa fa-check-square fa-fw"></i>  Request</a >
         <a href="/manage" class="w3-bar-item w3-button w3-padding"><i class="fa fa-table fa-fw"></i>  Manage</a >
@@ -88,60 +184,16 @@ class App extends Component {
       </div>
     </div>
     <hr></hr>
-    <div class="main-body w3-container">
-      <h5>Inventory</h5>
-        <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
-          <thead>
-          <tr>
-            <th>Control Number</th>
-            <th>Nomenclature</th>
-            <th>Manufacture</th>
-            <th>Model</th>
-            <th>Serial Number</th>
-            <th>Ownership</th>
-            <th>Current Possesion</th>
-            <th>Location</th>
-            <th>Description</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>{ data.database.item[0].ctrl_num }</td>
-            <td>{ data.database.item[0].nomenclature }</td>
-            <td>{ data.database.item[0].manufacture }</td>
-            <td>{ data.database.item[0].model }</td>
-            <td>{ data.database.item[0].serial_num }</td>
-            <td>{ data.database.item[0].ownership }</td>
-            <td>{ data.database.item[0].current }</td>
-            <td>{ data.database.item[0].location }</td>
-            <td>more...</td>
-          </tr>
-          <tr>
-            <td>{ data.database.item[1].ctrl_num }</td>
-            <td>{ data.database.item[1].nomenclature }</td>
-            <td>{ data.database.item[1].manufacture }</td>
-            <td>{ data.database.item[1].model }</td>
-            <td>{ data.database.item[1].serial_num }</td>
-            <td>{ data.database.item[1].ownership }</td>
-            <td>{ data.database.item[1].current }</td>
-            <td>{ data.database.item[1].location }</td>
-            <td>more...</td>
-          </tr>
-          <tr>
-            <td>{ data.database.item[2].ctrl_num }</td>
-            <td>{ data.database.item[2].nomenclature }</td>
-            <td>{ data.database.item[2].manufacture }</td>
-            <td>{ data.database.item[2].model }</td>
-            <td>{ data.database.item[2].serial_num }</td>
-            <td>{ data.database.item[2].ownership }</td>
-            <td>{ data.database.item[2].current }</td>
-            <td>{ data.database.item[2].location }</td>
-          <td>more...</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <hr></hr>
+    <Route path="/" component={Blank} />
+    <Route path="/home" component={Home} />
+    <Route path="/sections" component={Sections} />
+    <Route path="/personnel" component={Personnel} />
+    <Route path="/equipment" component={Equipment} />
+    <Route path="/calendar" component={Calendar} />
+    <Route path="/request" component={Request} />
+    <Route path="/manage" component={Manage} />
+    <Route path="/settings" component={Settings} />
+    <hr></hr>
       <br></br>
       <div class="main-body w3-container w3-dark-grey w3-padding-32">
         <div class="w3-row">
