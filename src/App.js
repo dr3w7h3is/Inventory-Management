@@ -108,7 +108,7 @@ class App extends Component {
     <div class="w3-bar w3-top w3-black w3-large">
       <span class="w3-bar-item w3-right">MCTSSA</span>
     </div>
-    <nav class="w3-sidebar w3-collapse w3-light-gray w3-animate-left" id="mySidebar"><br></br>
+    <nav class="w3-sidebar w3-collapse w3-light-gray" id="mySidebar"><br></br>
       <div class="w3-container">
         <h5>Dashboard</h5>
       </div>
