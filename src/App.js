@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import data from './test-data.json';
 
 const inNum = 43;
 const outNum = 62;
 
-function App() {
+class App extends Component {
+  render() {
   return (
   <div>
     <div class="w3-bar w3-top w3-black w3-large">
@@ -16,14 +17,14 @@ function App() {
         <h5>Dashboard</h5>
       </div>
       <div class="w3-bar-block">
-        <a href="localhost:3000/" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-home fa-fw"></i>  Home</a>
-        <a href="localhost:3000/" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Sections</a>
-        <a href="localhost:3000/" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-circle fa-fw"></i>  Personel</a>
-        <a href="localhost:3000/" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cubes fa-fw"></i>  Equipment</a>
-        <a href="localhost:3000/" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar fa-fw"></i>  Calender</a>
-        <a href="localhost:3000/" class="w3-bar-item w3-button w3-padding"><i class="fa fa-check-square fa-fw"></i>  Request</a>
-        <a href="localhost:3000/" class="w3-bar-item w3-button w3-padding"><i class="fa fa-table fa-fw"></i>  Manage</a>
-        <a href="localhost:3000/" class="w3-bar-item w3-button w3-padding"><i class="fa fa-gears fa-fw"></i>  Settings</a>
+        <a href="/" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-home fa-fw"></i>  Home</a >
+        <a href="/sections" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Sections</a>
+        <a href="/personnel" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-circle fa-fw"></i>  Personnel</a >
+        <a href="/equipment" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cubes fa-fw"></i>  Equipment</a >
+        <a href="/calendar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar fa-fw"></i>  Calendar</a >
+        <a href="/request" class="w3-bar-item w3-button w3-padding"><i class="fa fa-check-square fa-fw"></i>  Request</a >
+        <a href="/manage" class="w3-bar-item w3-button w3-padding"><i class="fa fa-table fa-fw"></i>  Manage</a >
+        <a href="/settings" class="w3-bar-item w3-button w3-padding"><i class="fa fa-gears fa-fw"></i>  Settings</a >
       </div>
     </nav>
     <div class="w3-main">
@@ -160,6 +161,7 @@ function App() {
       </div>
   </div>
   );
+}
 }
 
 export default App;
