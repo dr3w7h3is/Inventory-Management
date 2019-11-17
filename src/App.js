@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import './App.css';
 import data from './test-data.json';
 
@@ -11,17 +11,17 @@ const Blank = () => (
 </div>
 )
 const Home = () => (
-  <div class="w3-center">
-    <h1>Sections</h1>
+  <div class="main-body w3-container">
+    <h1>Home</h1>
   </div>
 )
 const Sections = () => (
-  <div class="w3-center">
+  <div class="main-body w3-container">
     <h1>Sections</h1>
   </div>
 )
 const Personnel = () => (
-  <div class="w3-center">
+  <div class="main-body w3-container">
     <h1>Personnel</h1>
   </div>
 )
@@ -81,22 +81,70 @@ const Equipment = () => (
   </div> 
 )
 const Calendar = () => (
-  <div class="w3-center">
+  <div class="main-body w3-container">
     <h1>Calendar</h1>
+    <div class="month">
+      <ul>
+        <li class="prev">&#10094;</li>
+        <li class="next">&#10095;</li>
+        <li>November<br></br><span>2019</span></li>
+      </ul>
+    </div>
+    <ul class="weekdays">
+      <li>Mo</li>
+      <li>Tu</li>
+      <li>We</li>
+      <li>Th</li>
+      <li>Fr</li>
+      <li>Sa</li>
+      <li>Su</li>
+    </ul>
+    <ul class="days">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+      <li>7</li>
+      <li>8</li>
+      <li>9</li>
+      <li>10</li>
+      <li>11</li>
+      <li>12</li>
+      <li>13</li>
+      <li>14</li>
+      <li>15</li>
+      <li>16</li>
+      <li><span class="active">17</span></li>
+      <li>18</li>
+      <li>19</li>
+      <li>20</li>
+      <li>21</li>
+      <li>22</li>
+      <li>23</li>
+      <li>24</li>
+      <li>25</li>
+      <li>26</li>
+      <li>27</li>
+      <li>28</li>
+      <li>29</li>
+      <li>30</li>
+    </ul> 
   </div>
 )
 const Request = () => (
-  <div class="w3-center">
+  <div class="main-body w3-container">
     <h1>Request</h1>
   </div>
 )
 const Manage = () => (
-  <div class="w3-center">
+  <div class="main-body w3-container">
     <h1>Manage</h1>
   </div>
 )
 const Settings = () => (
-  <div class="w3-center">
+  <div class="main-body w3-container">
     <h1>Settings</h1>
   </div>
 )
@@ -113,14 +161,14 @@ class App extends Component {
         <h5>Dashboard</h5>
       </div>
       <div class="w3-bar-block">
-        <Link to="/" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-home fa-fw"></i>  Home</Link >
+        <Link to="/home" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-home fa-fw"></i>  Home</Link >
         <Link to="/sections" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Sections</Link>
-        <a href="/personnel" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-circle fa-fw"></i>  Personnel</a >
+        <Link to="/personnel" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-circle fa-fw"></i>  Personnel</Link >
         <Link to="/equipment" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cubes fa-fw"></i>  Equipment</Link >
-        <a href="/calendar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar fa-fw"></i>  Calendar</a >
-        <a href="/request" class="w3-bar-item w3-button w3-padding"><i class="fa fa-check-square fa-fw"></i>  Request</a >
-        <a href="/manage" class="w3-bar-item w3-button w3-padding"><i class="fa fa-table fa-fw"></i>  Manage</a >
-        <a href="/settings" class="w3-bar-item w3-button w3-padding"><i class="fa fa-gears fa-fw"></i>  Settings</a >
+        <Link to="/calendar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar fa-fw"></i>  Calendar</Link >
+        <Link to="/request" class="w3-bar-item w3-button w3-padding"><i class="fa fa-check-square fa-fw"></i>  Request</Link >
+        <Link to="/manage" class="w3-bar-item w3-button w3-padding"><i class="fa fa-table fa-fw"></i>  Manage</Link >
+        <Link to="/settings" class="w3-bar-item w3-button w3-padding"><i class="fa fa-gears fa-fw"></i>  Settings</Link >
       </div>
     </nav>
     <div class="w3-main">
