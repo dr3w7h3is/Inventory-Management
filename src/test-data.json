@@ -10,7 +10,25 @@
                 "ownership": "MCNEL",
                 "current": "Jimmy Gibson",
                 "location": "57 Lab",
-                "description": "A brief listing of things about the item"
+                "description": "A brief listing of things about the item",
+                "return_date": "20200101",
+                "check_out": [
+                    {
+                        "test_1": [
+                            {
+                                "out_date": "20200203",
+                                "return_date": "20200220",
+                                "name": "Jimmy Gibson"
+                            }
+                        ],
+                        "test_2": [
+                            {
+                                "out_date": "20200301",
+                                "return_date": "202003010"
+                            }
+                        ]
+                    }
+                ]
             },
             {
                 "ctrl_num": "2",
