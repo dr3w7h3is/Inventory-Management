@@ -3,10 +3,13 @@ import { Link, Route } from 'react-router-dom';
 import './App.css';
 import data from './test-data.json';
 
+//variables for out and in inventory 
+//const total = data.database.length //DEJA TODO: Get this to work and calculate length 
 const inNum = 43;
 const outNum = 62;
 
-//hello
+
+//toolbar on the left side of the window 
 const Blank = () => (
   <div>
 </div>
@@ -14,11 +17,8 @@ const Blank = () => (
 const Home = () => (
   <div class="main-body w3-container">
     <h1>Home</h1>
-  </div>
-)
-const Sections = () => (
-  <div class="main-body w3-container">
-    <h1>Sections</h1>
+    <p>Welcome to MCNEL's Inventory Management System</p>
+    <p>POC: Deja Hansen</p>
   </div>
 )
 const Personnel = () => (
@@ -33,12 +33,11 @@ const Equipment = () => (
       <thead>
         <tr>
           <th>Control Number</th>
-          <th>Nomenclature</th>
-          <th>Manufacture</th>
+          <th>Type</th>
+          <th>Manufacturer</th>
           <th>Model</th>
           <th>Serial Number</th>
-          <th>Ownership</th>
-          <th>Current Possesion</th>
+          <th>Owner</th>
           <th>Location</th>
           <th>Description</th>
         </tr>
@@ -46,34 +45,31 @@ const Equipment = () => (
       <tbody>
         <tr>
           <td>{ data.database.item[0].ctrl_num }</td>
-          <td>{ data.database.item[0].nomenclature }</td>
-          <td>{ data.database.item[0].manufacture }</td>
+          <td>{ data.database.item[0].type }</td>
+          <td>{ data.database.item[0].manufacturer }</td>
           <td>{ data.database.item[0].model }</td>
           <td>{ data.database.item[0].serial_num }</td>
-          <td>{ data.database.item[0].ownership }</td>
-          <td>{ data.database.item[0].current }</td>
+          <td>{ data.database.item[0].owner}</td>
           <td>{ data.database.item[0].location }</td>
           <td>more...</td>
         </tr>
         <tr>
           <td>{ data.database.item[1].ctrl_num }</td>
-          <td>{ data.database.item[1].nomenclature }</td>
-          <td>{ data.database.item[1].manufacture }</td>
+          <td>{ data.database.item[1].type }</td>
+          <td>{ data.database.item[1].manufacturer }</td>
           <td>{ data.database.item[1].model }</td>
           <td>{ data.database.item[1].serial_num }</td>
-          <td>{ data.database.item[1].ownership }</td>
-          <td>{ data.database.item[1].current }</td>
+          <td>{ data.database.item[1].owner }</td>
           <td>{ data.database.item[1].location }</td>
           <td>more...</td>
         </tr>
         <tr>
           <td>{ data.database.item[2].ctrl_num }</td>
-          <td>{ data.database.item[2].nomenclature }</td>
-          <td>{ data.database.item[2].manufacture }</td>
+          <td>{ data.database.item[2].type }</td>
+          <td>{ data.database.item[2].manufacturee }</td>
           <td>{ data.database.item[2].model }</td>
           <td>{ data.database.item[2].serial_num }</td>
-          <td>{ data.database.item[2].ownership }</td>
-          <td>{ data.database.item[2].current }</td>
+          <td>{ data.database.item[2].owner }</td>
           <td>{ data.database.item[2].location }</td>
         <td>more...</td>
         </tr>
@@ -163,7 +159,6 @@ class App extends Component {
       </div>
       <div class="w3-bar-block">
         <Link to="/home" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-home fa-fw"></i>  Home</Link >
-        <Link to="/sections" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Sections</Link>
         <Link to="/personnel" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-circle fa-fw"></i>  Personnel</Link >
         <Link to="/equipment" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cubes fa-fw"></i>  Equipment</Link >
         <Link to="/calendar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar fa-fw"></i>  Calendar</Link >
@@ -235,7 +230,6 @@ class App extends Component {
     <hr></hr>
     <Route path="/" component={Blank} />
     <Route path="/home" component={Home} />
-    <Route path="/sections" component={Sections} />
     <Route path="/personnel" component={Personnel} />
     <Route path="/equipment" component={Equipment} />
     <Route path="/calendar" component={Calendar} />
