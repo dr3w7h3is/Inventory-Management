@@ -10,6 +10,7 @@
                 "owner": "MCNEL",
                 "location": "57 Lab",
                 "description": "ports.....A brief listing of things about the item",
+                "availability": "0", 
                 "check_out": [
                     {
                         "check_out1": [
@@ -21,8 +22,8 @@
                                 "contact_num": "404-567-7890", 
                                 "group": "MCNEL", 
                                 "event": "Tanium",
-                                "priority": "1", 
-                                "tmp_location": "loc", 
+                                "event_descrip": "Purpose of thie event is to test Tanium against IAS.", 
+                                "tmp_location": "Bldg 43", 
                                 "comments": "text"
                             }
                         ]

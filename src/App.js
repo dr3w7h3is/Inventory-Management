@@ -4,7 +4,7 @@ import './App.css';
 import data from './test-data.json';
 
 //variables for out and in inventory 
-//const total = data.database.length //DEJA TODO: Get this to work and calculate length 
+//const total = data.database.length //DEJA TODO: Get this to work and calculate 
 const inNum = 43;
 const outNum = 62;
 
@@ -14,21 +14,27 @@ const Blank = () => (
   <div>
 </div>
 )
+//Home Page Content 
 const Home = () => (
   <div class="main-body w3-container">
     <h1>Home</h1>
     <p>Welcome to MCNEL's Inventory Management System</p>
+    <p>This system is designed to manage the inventory of items within MCNEL.
+
+      Network Equipment includes ...
+
+      Test tools includes ... 
+
+      Simulation Equipment includes ... 
+
+    </p>
     <p>POC: Deja Hansen</p>
   </div>
 )
-const Personnel = () => (
-  <div class="main-body w3-container">
-    <h1>Personnel</h1>
-  </div>
-)
+//Equipment Page Content 
 const Equipment = () => (
   <div class="main-body w3-container">
-    <h5>Inventory</h5>
+    <h1>Inventory</h1>
     <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
       <thead>
         <tr>
@@ -43,7 +49,7 @@ const Equipment = () => (
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr onclick='window.open("equip_win.js")'> 
           <td>{ data.database.item[0].ctrl_num }</td>
           <td>{ data.database.item[0].type }</td>
           <td>{ data.database.item[0].manufacturer }</td>
@@ -51,7 +57,7 @@ const Equipment = () => (
           <td>{ data.database.item[0].serial_num }</td>
           <td>{ data.database.item[0].owner}</td>
           <td>{ data.database.item[0].location }</td>
-          <td>more...</td>
+          <td>more...</td> 
         </tr>
         <tr>
           <td>{ data.database.item[1].ctrl_num }</td>
@@ -66,7 +72,7 @@ const Equipment = () => (
         <tr>
           <td>{ data.database.item[2].ctrl_num }</td>
           <td>{ data.database.item[2].type }</td>
-          <td>{ data.database.item[2].manufacturee }</td>
+          <td>{ data.database.item[2].manufacturer }</td>
           <td>{ data.database.item[2].model }</td>
           <td>{ data.database.item[2].serial_num }</td>
           <td>{ data.database.item[2].owner }</td>
@@ -77,6 +83,7 @@ const Equipment = () => (
     </table>
   </div> 
 )
+//Calendar Page Content 
 const Calendar = () => (
   <div class="main-body w3-container">
     <h1>Calendar</h1>
@@ -88,13 +95,13 @@ const Calendar = () => (
       </ul>
     </div>
     <ul class="weekdays">
-      <li>Mo</li>
-      <li>Tu</li>
-      <li>We</li>
-      <li>Th</li>
-      <li>Fr</li>
-      <li>Sa</li>
-      <li>Su</li>
+      <li>Mon</li>
+      <li>Tues</li>
+      <li>Wed</li>
+      <li>Thurs</li>
+      <li>Fri</li>
+      <li>Sat</li>
+      <li>Sun</li>
     </ul>
     <ul class="days">
       <li>1</li>
@@ -130,19 +137,14 @@ const Calendar = () => (
     </ul> 
   </div>
 )
-const Request = () => (
+const CheckOut = () => (
   <div class="main-body w3-container">
-    <h1>Request</h1>
+    <h1>CheckOut</h1>
   </div>
 )
 const Manage = () => (
   <div class="main-body w3-container">
     <h1>Manage</h1>
-  </div>
-)
-const Settings = () => (
-  <div class="main-body w3-container">
-    <h1>Settings</h1>
   </div>
 )
 
@@ -159,12 +161,10 @@ class App extends Component {
       </div>
       <div class="w3-bar-block">
         <Link to="/home" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-home fa-fw"></i>  Home</Link >
-        <Link to="/personnel" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user-circle fa-fw"></i>  Personnel</Link >
         <Link to="/equipment" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cubes fa-fw"></i>  Equipment</Link >
         <Link to="/calendar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar fa-fw"></i>  Calendar</Link >
-        <Link to="/request" class="w3-bar-item w3-button w3-padding"><i class="fa fa-check-square fa-fw"></i>  Request</Link >
-        <Link to="/manage" class="w3-bar-item w3-button w3-padding"><i class="fa fa-table fa-fw"></i>  Manage</Link >
-        <Link to="/settings" class="w3-bar-item w3-button w3-padding"><i class="fa fa-gears fa-fw"></i>  Settings</Link >
+        <Link to="/checkout" class="w3-bar-item w3-button w3-padding"><i class="fa fa-check-square fa-fw"></i>  CheckOut </Link >
+        <Link to="/manage" class="w3-bar-item w3-button w3-padding"><i class="fa fa-table fa-fw"></i> Manage</Link >
       </div>
     </nav>
     <div class="w3-main">
@@ -175,7 +175,7 @@ class App extends Component {
               <i class="fa fa-square fa-stack-2x icon-black"></i>
               <i class="fa fa-terminal fa-stack-1x fa-inverse"></i>
             </span>
-            INV-MAN
+            MCNEL Inventory Management System   
           </b>
         </h5>
       </header>
@@ -185,8 +185,9 @@ class App extends Component {
         <div class="w3-container w3-red w3-padding-16">
           <div class="w3-left w3-half"><i class="fa fa-cloud-download w3-xxxlarge"></i></div>
           <div class="w3-left">
-            <h6>IN: { inNum }</h6>
-            <h6>OUT: { outNum }</h6>
+            <h6>Routers IN: { inNum }</h6> 
+            <h6>Switches IN: { outNum }</h6>
+            <h6>Servers IN: { outNum }</h6>
           </div>
           <div class="w3-clear">
           <h4>Network Equipment</h4>
@@ -201,15 +202,16 @@ class App extends Component {
             <h6>OUT: { outNum }</h6>
           </div>
           <div class="w3-clear"></div>
-          <h4>Servers</h4>
+          <h4>Other</h4>
         </div>
       </div>
       <div class="w3-quarter">
         <div class="w3-container w3-green w3-padding-16">
           <div class="w3-left w3-half"><i class="fa fa-wrench w3-xxxlarge"></i></div>
           <div class="w3-left">
-            <h6>IN: { inNum }</h6>
-            <h6>OUT: { outNum }</h6>
+            <h6>NTAPS IN: { inNum }</h6>
+            <h6>Netpacks IN: { outNum }</h6>
+            <h6>XXXXX IN: { outNum }</h6>
           </div>
           <div class="w3-clear"></div>
           <h4>Test Tools</h4>
@@ -228,30 +230,16 @@ class App extends Component {
       </div>
     </div>
     <hr></hr>
-    <Route path="/" component={Blank} />
     <Route path="/home" component={Home} />
-    <Route path="/personnel" component={Personnel} />
     <Route path="/equipment" component={Equipment} />
     <Route path="/calendar" component={Calendar} />
-    <Route path="/request" component={Request} />
+    <Route path="/checkout" component={CheckOut} />
     <Route path="/manage" component={Manage} />
-    <Route path="/settings" component={Settings} />
     <hr></hr>
       <br></br>
       <div class="main-body w3-container w3-dark-grey w3-padding-32">
         <div class="w3-row">
-          <div class="w3-container w3-third">
-            <h5 class="w3-bottombar border-red">Demographic</h5>
-            <p>Language</p>
-          </div>
-          <div class="w3-container w3-third">
-            <h5 class="w3-bottombar border-blue">System</h5>
-            <p>Browser</p>
-          </div>
-          <div class="w3-container w3-third">
-            <h5 class="w3-bottombar border-green">Target</h5>
-            <p>Users</p>
-          </div>
+         
         </div>
       </div>
   </div>

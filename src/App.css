@@ -71,7 +71,7 @@ a{
 .icon-black{
 	color: #000;
 }
-
+/* Styling for the calendar */
 .month {
 	padding: 70px 25px;
 	width: 100%;
@@ -127,7 +127,9 @@ a{
 	background: #1abc9c;
 	color: white !important
 }
+/*END OF CALENDAR STYLES*/
 
+/*???*/
 .w3-table,.w3-table-all{
 	border-collapse:collapse;
 	border-spacing:0;
