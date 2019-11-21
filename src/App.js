@@ -1,3 +1,7 @@
+// Authors: Drew Theis, Deja Hansen
+// Right: USMC
+// Date Created: 20191120
+
 import React, {Component} from 'react';
 import { Link, Route } from 'react-router-dom';
 import './App.css';
@@ -7,15 +11,26 @@ import data from './test-data.json';
 //const total = data.database.length //DEJA TODO: Get this to work and calculate 
 const inNum = 43;
 const outNum = 62;
-
-
-//toolbar on the left side of the window 
-const Blank = () => (
-  <div>
-</div>
-)
+// Function to loop getting inventory items from database
+function inventory() {
+  return (data.database.item.map(x => (
+    <tbody class="w3-striped">
+      <tr>
+        <td>{x.ctrl_num}</td>
+        <td>{x.type}</td>
+        <td>{x.manufacturer}</td>
+        <td>{x.model}</td>
+        <td>{x.serial_num}</td>
+        <td>{x.owner}</td>
+        <td>{x.location}</td>
+        <td>More...</td>
+      </tr>
+    </tbody>
+  )))
+}
 //Home Page Content 
-const Home = () => (
+function Home() {
+  return (
   <div class="main-body w3-container">
     <h1>Home</h1>
     <p>Welcome to MCNEL's Inventory Management System</p>
@@ -30,61 +45,34 @@ const Home = () => (
     </p>
     <p>POC: Deja Hansen</p>
   </div>
-)
-//Equipment Page Content 
-const Equipment = () => (
-  <div class="main-body w3-container">
-    <h1>Inventory</h1>
-    <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
-      <thead>
-        <tr>
-          <th>Control Number</th>
-          <th>Type</th>
-          <th>Manufacturer</th>
-          <th>Model</th>
-          <th>Serial Number</th>
-          <th>Owner</th>
-          <th>Location</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr onclick='window.open("equip_win.js")'> 
-          <td>{ data.database.item[0].ctrl_num }</td>
-          <td>{ data.database.item[0].type }</td>
-          <td>{ data.database.item[0].manufacturer }</td>
-          <td>{ data.database.item[0].model }</td>
-          <td>{ data.database.item[0].serial_num }</td>
-          <td>{ data.database.item[0].owner}</td>
-          <td>{ data.database.item[0].location }</td>
-          <td>more...</td> 
-        </tr>
-        <tr>
-          <td>{ data.database.item[1].ctrl_num }</td>
-          <td>{ data.database.item[1].type }</td>
-          <td>{ data.database.item[1].manufacturer }</td>
-          <td>{ data.database.item[1].model }</td>
-          <td>{ data.database.item[1].serial_num }</td>
-          <td>{ data.database.item[1].owner }</td>
-          <td>{ data.database.item[1].location }</td>
-          <td>more...</td>
-        </tr>
-        <tr>
-          <td>{ data.database.item[2].ctrl_num }</td>
-          <td>{ data.database.item[2].type }</td>
-          <td>{ data.database.item[2].manufacturer }</td>
-          <td>{ data.database.item[2].model }</td>
-          <td>{ data.database.item[2].serial_num }</td>
-          <td>{ data.database.item[2].owner }</td>
-          <td>{ data.database.item[2].location }</td>
-        <td>more...</td>
-        </tr>
-      </tbody>
-    </table>
-  </div> 
-)
+  )
+}
+//Function to create and list items from database
+function Equipment() {
+  return (
+    <div class="main-body w3-container">
+      <h1>Inventory</h1>
+      <table class="w3-table w3-bordered w3-border w3-hoverable w3-white">
+        <thead>
+          <tr>
+            <th>Control Number</th>
+            <th>Type</th>
+            <th>Manufacturer</th>
+            <th>Model</th>
+            <th>Serial Number</th>
+            <th>Owner</th>
+            <th>Location</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+          {inventory()}
+      </table>
+    </div>
+  )
+}
 //Calendar Page Content 
-const Calendar = () => (
+function Calendar() {
+  return (
   <div class="main-body w3-container">
     <h1>Calendar</h1>
     <div class="month">
@@ -111,42 +99,26 @@ const Calendar = () => (
       <li>5</li>
       <li>6</li>
       <li>7</li>
-      <li>8</li>
-      <li>9</li>
-      <li>10</li>
-      <li>11</li>
-      <li>12</li>
-      <li>13</li>
-      <li>14</li>
-      <li>15</li>
-      <li>16</li>
-      <li><span class="active">17</span></li>
-      <li>18</li>
-      <li>19</li>
-      <li>20</li>
-      <li>21</li>
-      <li>22</li>
-      <li>23</li>
-      <li>24</li>
-      <li>25</li>
-      <li>26</li>
-      <li>27</li>
-      <li>28</li>
-      <li>29</li>
-      <li>30</li>
     </ul> 
   </div>
-)
-const CheckOut = () => (
+  )
+}
+// Function to create elements in the checkout page
+function CheckOut() {
+  return (
   <div class="main-body w3-container">
     <h1>CheckOut</h1>
   </div>
-)
-const Manage = () => (
+  )
+}
+// Function to create elements in Manage page
+function Manage() {
+  return (
   <div class="main-body w3-container">
     <h1>Manage</h1>
   </div>
-)
+  )
+}
 
 class App extends Component {
   render() {
@@ -160,7 +132,7 @@ class App extends Component {
         <h5>Dashboard</h5>
       </div>
       <div class="w3-bar-block">
-        <Link to="/home" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-home fa-fw"></i>  Home</Link >
+        <Link to="/home" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw"></i>  Home</Link >
         <Link to="/equipment" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cubes fa-fw"></i>  Equipment</Link >
         <Link to="/calendar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar fa-fw"></i>  Calendar</Link >
         <Link to="/checkout" class="w3-bar-item w3-button w3-padding"><i class="fa fa-check-square fa-fw"></i>  CheckOut </Link >
@@ -170,13 +142,7 @@ class App extends Component {
     <div class="w3-main">
       <header class="w3-container">
         <h5>
-          <b>
-            <span class="fa-stack fa-lg">
-              <i class="fa fa-square fa-stack-2x icon-black"></i>
-              <i class="fa fa-terminal fa-stack-1x fa-inverse"></i>
-            </span>
-            MCNEL Inventory Management System   
-          </b>
+          <b>MCNEL Inventory Management System</b>
         </h5>
       </header>
     </div>
