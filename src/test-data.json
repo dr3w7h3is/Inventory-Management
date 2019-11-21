@@ -11,24 +11,7 @@
                 "location": "57 Lab",
                 "description": "ports.....A brief listing of things about the item",
                 "availability": "0", 
-                "check_out": [
-                    {
-                        "check_out1": [
-                            {
-                                "out_date": "20200203",
-                                "proj_return_date": "20200220",
-                                "act_return_date": "xxxx", 
-                                "name": "Jimmy Gibson", 
-                                "contact_num": "404-567-7890", 
-                                "group": "MCNEL", 
-                                "event": "Tanium",
-                                "event_descrip": "Purpose of thie event is to test Tanium against IAS.", 
-                                "tmp_location": "Bldg 43", 
-                                "comments": "text"
-                            }
-                        ]
-                    }
-                ]
+                "check_out": " "
             },
             {
                 "ctrl_num": "2",
@@ -39,7 +22,7 @@
                 "owner": "MCNEL",
                 "location": "57 Lab",
                 "description": "A brief listing of things about the item", 
-                "check_out": ""
+                "check_out": " "
             },
             {
                 "ctrl_num": "3",

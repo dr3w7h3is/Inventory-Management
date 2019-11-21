@@ -10,7 +10,7 @@ const outNum = 62;
 // Function to loop getting inventory items from database
 function inventory() {
   return (data.database.item.map(x => (
-    <tbody class="w3-striped">
+    <tbody className="w3-striped">
       <tr>
         <td>{x.ctrl_num}</td>
         <td>{x.type}</td>
@@ -27,18 +27,13 @@ function inventory() {
 //Home Page Content 
 function Home() {
   return (
-  <div class="main-body w3-container">
+  <div className="main-body w3-container">
     <h1>Home</h1>
     <p>Welcome to MCNEL's Inventory Management System</p>
-    <p>This system is designed to manage the inventory of items within MCNEL.
-
-      Network Equipment includes ...
-
-      Test tools includes ... 
-
-      Simulation Equipment includes ... 
-
-    </p>
+    <p>This system is designed to manage the inventory of items within MCNEL.</p>
+    <p>Network Equipment includes ...</p>
+    <p>Test tools includes ... </p>
+    <p>Simulation Equipment includes ...</p> 
     <p>POC: Deja Hansen</p>
   </div>
   )
@@ -46,9 +41,9 @@ function Home() {
 //Function to create and list items from database
 function Equipment() {
   return (
-    <div class="main-body w3-container">
+    <div className="main-body w3-container">
       <h1>Inventory</h1>
-      <table class="w3-table w3-bordered w3-border w3-hoverable w3-white">
+      <table className="w3-table w3-bordered w3-border w3-hoverable w3-white">
         <thead>
           <tr>
             <th>Control Number</th>
@@ -69,16 +64,16 @@ function Equipment() {
 //Calendar Page Content 
 function Calendar() {
   return (
-  <div class="main-body w3-container">
+  <div className="main-body w3-container">
     <h1>Calendar</h1>
-    <div class="month">
+    <div className="month">
       <ul>
-        <li class="prev">&#10094;</li>
-        <li class="next">&#10095;</li>
+        <li className="prev">&#10094;</li>
+        <li className="next">&#10095;</li>
         <li>November<br></br><span>2019</span></li>
       </ul>
     </div>
-    <ul class="weekdays">
+    <ul className="weekdays">
       <li>Mon</li>
       <li>Tues</li>
       <li>Wed</li>
@@ -87,7 +82,7 @@ function Calendar() {
       <li>Sat</li>
       <li>Sun</li>
     </ul>
-    <ul class="days">
+    <ul className="days">
       <li>1</li>
       <li>2</li>
       <li>3</li>
@@ -102,7 +97,7 @@ function Calendar() {
 // Function to create elements in the checkout page
 function CheckOut() {
   return (
-  <div class="main-body w3-container">
+  <div className="main-body w3-container">
     <h1>CheckOut</h1>
   </div>
   )
@@ -110,86 +105,82 @@ function CheckOut() {
 // Function to create elements in Manage page
 function Manage() {
   return (
-  <div class="main-body w3-container">
+  <div className="main-body w3-container">
     <h1>Manage</h1>
   </div>
   )
 }
-
+// Fucntion for creating tiles elements
+function tiles() {
+  var names = [
+    {
+      name: "Network Equipment",
+      color: "red",
+      symbol: "fa-cloud-download"
+    },
+    {
+      name: "Other",
+      color: "blue",
+      symbol: "fa-microchip"
+    },
+    {
+      name: "Test Tools",
+      color: "green",
+      symbol: "fa-wrench"
+    },
+    {
+      name: "Simulation Tools",
+      color: "orange",
+      symbol: "fa-users"
+    }
+  ]
+  return (names.map(x => (
+    <div className="w3-quarter">
+      <div className={`w3-container w3-${x.color} w3-padding-16 text-white`}>
+        <div className="w3-left w3-half">
+          <i className={`fa ${x.symbol} w3-xxxlarge`}></i>
+        </div>
+        <div className="w3-left">
+          <h6>Routers IN: { inNum }</h6> 
+          <h6>Switches IN: { outNum }</h6>
+          <h6>Servers IN: { outNum }</h6>
+        </div>
+        <div className="w3-clear">
+          <h4>{x.name}</h4>
+        </div>
+      </div>
+    </div>
+  )))
+}
+// Main class for page contruction
 class App extends Component {
   render() {
   return (
   <div>
-    <div class="w3-bar w3-top w3-black w3-large">
-      <span class="w3-bar-item w3-right">MCTSSA</span>
+    <div className="w3-bar w3-top w3-black w3-large">
+      <span className="w3-bar-item w3-right">MCTSSA</span>
     </div>
-    <nav class="w3-sidebar w3-collapse w3-light-gray" id="mySidebar"><br></br>
-      <div class="w3-container">
+    <nav className="w3-sidebar w3-collapse w3-light-gray" id="mySidebar"><br></br>
+      <div className="w3-container">
         <h5>Dashboard</h5>
       </div>
-      <div class="w3-bar-block">
-        <Link to="/home" class="w3-bar-item w3-button w3-padding"><i class="fa fa-home fa-fw"></i>  Home</Link >
-        <Link to="/equipment" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cubes fa-fw"></i>  Equipment</Link >
-        <Link to="/calendar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar fa-fw"></i>  Calendar</Link >
-        <Link to="/checkout" class="w3-bar-item w3-button w3-padding"><i class="fa fa-check-square fa-fw"></i>  CheckOut </Link >
-        <Link to="/manage" class="w3-bar-item w3-button w3-padding"><i class="fa fa-table fa-fw"></i> Manage</Link >
+      <div className="w3-bar-block">
+        <Link to="/home" className="w3-bar-item w3-button w3-padding"><i className="fa fa-home fa-fw"></i>  Home</Link >
+        <Link to="/equipment" className="w3-bar-item w3-button w3-padding"><i className="fa fa-cubes fa-fw"></i>  Equipment</Link >
+        <Link to="/calendar" className="w3-bar-item w3-button w3-padding"><i className="fa fa-calendar fa-fw"></i>  Calendar</Link >
+        <Link to="/checkout" className="w3-bar-item w3-button w3-padding"><i className="fa fa-check-square fa-fw"></i>  CheckOut </Link >
+        <Link to="/manage" className="w3-bar-item w3-button w3-padding"><i className="fa fa-table fa-fw"></i> Manage</Link >
       </div>
     </nav>
-    <div class="w3-main">
-      <header class="w3-container">
+    <div className="w3-main">
+      <header className="w3-container">
         <h5>
           <b>MCNEL Inventory Management System</b>
         </h5>
       </header>
     </div>
-    <div class="quick-look w3-row-padding w3-margin-bottom">
-      <div class="w3-quarter">
-        <div class="w3-container w3-red w3-padding-16">
-          <div class="w3-left w3-half"><i class="fa fa-cloud-download w3-xxxlarge"></i></div>
-          <div class="w3-left">
-            <h6>Routers IN: { inNum }</h6> 
-            <h6>Switches IN: { outNum }</h6>
-            <h6>Servers IN: { outNum }</h6>
-          </div>
-          <div class="w3-clear">
-          <h4>Network Equipment</h4>
-          </div>
-        </div>
-      </div>
-      <div class="w3-quarter">
-        <div class="w3-container w3-blue w3-padding-16">
-          <div class="w3-left w3-half"><i class="fa fa-microchip w3-xxxlarge"></i></div>
-          <div class="w3-left">
-            <h6>IN: { inNum }</h6>
-            <h6>OUT: { outNum }</h6>
-          </div>
-          <div class="w3-clear"></div>
-          <h4>Other</h4>
-        </div>
-      </div>
-      <div class="w3-quarter">
-        <div class="w3-container w3-green w3-padding-16">
-          <div class="w3-left w3-half"><i class="fa fa-wrench w3-xxxlarge"></i></div>
-          <div class="w3-left">
-            <h6>NTAPS IN: { inNum }</h6>
-            <h6>Netpacks IN: { outNum }</h6>
-            <h6>XXXXX IN: { outNum }</h6>
-          </div>
-          <div class="w3-clear"></div>
-          <h4>Test Tools</h4>
-        </div>
-      </div>
-      <div class="w3-quarter">
-        <div class="w3-container w3-orange text-white w3-padding-16">
-          <div class="w3-left w3-half"><i class="fa fa-users w3-xxxlarge"></i></div>
-          <div class="w3-left">
-            <h6>IN: { inNum }</h6>
-            <h6>OUT: { outNum }</h6>
-          </div>
-          <div class="w3-clear"></div>
-          <h4>Simulation Equipment</h4>
-        </div>
-      </div>
+    <div className="quick-look w3-row-padding w3-margin-bottom">
+      {tiles()}
     </div>
     <hr></hr>
     <Route path="/home" component={Home} />
@@ -198,15 +189,9 @@ class App extends Component {
     <Route path="/checkout" component={CheckOut} />
     <Route path="/manage" component={Manage} />
     <hr></hr>
-      <br></br>
-      <div class="main-body w3-container w3-dark-grey w3-padding-32">
-        <div class="w3-row">
-         
-        </div>
-      </div>
+    <br></br>
   </div>
-  );
-}
+  );}
 }
 
 export default App;
