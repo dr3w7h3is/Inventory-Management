@@ -1,7 +1,3 @@
-// Authors: Drew Theis, Deja Hansen
-// Right: USMC
-// Date Created: 20191120
-
 import React, {Component} from 'react';
 import { Link, Route } from 'react-router-dom';
 import './App.css';
