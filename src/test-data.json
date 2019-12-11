@@ -34,6 +34,17 @@
                 "location": "Building 31343",
                 "description": "A brief listing of things about the item", 
                 "check_out": " "
+            },
+            {
+                "ctrl_num": "4",
+                "type": "NTAP",
+                "manufacturer": "Ixia",
+                "model": "Fiber",
+                "serial_num": "IA010202",
+                "owner": "MCNEL",
+                "location": "Building 31343",
+                "description": "A brief listing of things about the item", 
+                "check_out": " "
             }
         ]
     }
