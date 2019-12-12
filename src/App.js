@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { Link, Route } from 'react-router-dom';
 import './App.css';
-import data from './test-data.json';
+import data from './fake-data.json';
+const request = require('request')
 
 //variables for out and in inventory 
 //const total = data.database.length //DEJA TODO: Get this to work and calculate 
@@ -9,7 +10,7 @@ const inNum = 43;
 const outNum = 62;
 // Function to loop getting inventory items from database
 function inventory() {
-  return (data.database.item.map(x => (
+  return (data.database.map(x => (
     <tbody className="w3-striped">
       <tr>
         <td>{x.ctrl_num}</td>
@@ -19,7 +20,7 @@ function inventory() {
         <td>{x.serial_num}</td>
         <td>{x.owner}</td>
         <td>{x.location}</td>
-        <td>More...</td>
+        <td>...more</td>
       </tr>
     </tbody>
   )))
@@ -107,9 +108,72 @@ function Manage() {
   return (
   <div className="main-body w3-container">
     <h1>Manage</h1>
+    <div className="add-items">
+    <form id="items">
+      <ul className="no-bullet">
+        <li>
+          <label form="type">Type: </label>
+          <input type="text" id="type" name="type_name"></input>
+        </li>
+        <li>
+          <label form="type">Manufacturer: </label>
+          <input type="text" id="man" name="man_name"></input>
+        </li>
+        <li>
+          <label form="type">Model: </label>
+          <input type="text" id="model" name="model"></input>
+        </li>
+        <li>
+          <label form="type">Serial Number: </label>
+          <input type="text" id="serial" name="serial"></input>
+        </li>
+        <li>
+          <label form="type">Owner: </label>
+          <input type="text" id="owner" name="owner"></input>
+        </li>
+        <li>
+          <label form="type">Location: </label>
+          <input type="text" id="loc" name="location"></input>
+        </li>
+        <li>
+          <label form="type">Description: </label>
+          <input type="text" id="desc" name="desctription"></input>
+        </li>
+        <li>
+          <button type="submit" onClick={submit}>Add</button>
+        </li>
+      </ul>
+    </form>
+    </div>
   </div>
   )
 }
+
+function submit() {
+  var type = document.getElementById('type').value;
+  var man = document.getElementById('man').value;
+  var model = document.getElementById('model').value;
+  var serial = document.getElementById('serial').value;
+  var owner = document.getElementById('owner').value;
+  var loc = document.getElementById('loc').value;
+  var desc = document.getElementById('desc').value;
+  var newItem = {
+        ctrl_num: "",
+        type: type,
+        manufacturer: man,
+        model: model,
+        serial_num: serial,
+        owner: owner,
+        location: loc,
+        description: desc, 
+        check_out: " "
+  }
+  newItem = JSON.stringify(newItem);
+  request.post('http://10.255.4.57:8080', {
+    body: newItem
+  })
+}
+
 // Fucntion for creating tiles elements
 function tiles() {
   var names = [
