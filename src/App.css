@@ -131,10 +131,10 @@ a{
 	list-style-type: none;
 }
 .add-items {
-	margin: 0;
+	margin: 10;
 }
 .add-items input {
-	margin-left: 20;
+	margin-left: 30;
 }
 
 form {
@@ -149,13 +149,14 @@ form {
   }
   label {
 	display: inline-block;
-	width: 130px;
+	width: 140px;
 	text-align: right;
+	padding-right: 10px;
   }
   input, 
   textarea {
 	font: 1em sans-serif;
-	width: 200px;
+	width: 280px;
 	box-sizing: border-box;
 	border: 1px solid #999;
   }

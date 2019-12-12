@@ -110,7 +110,7 @@ function Manage() {
     <h1>Manage</h1>
     <div className="add-items">
     <form id="items">
-      <ul className="no-bullet">
+      <ul className="no-bullet w3-center">
         <li>
           <label form="type">Type: </label>
           <input type="text" id="type" name="type_name"></input>
@@ -139,7 +139,7 @@ function Manage() {
           <label form="type">Description: </label>
           <input type="text" id="desc" name="desctription"></input>
         </li>
-        <li>
+        <li className="w3-center">
           <button type="submit" onClick={submit}>Add</button>
         </li>
       </ul>
@@ -183,7 +183,7 @@ function tiles() {
       symbol: "fa-cloud-download"
     },
     {
-      name: "Other",
+      name: "Servers",
       color: "blue",
       symbol: "fa-microchip"
     },
@@ -205,11 +205,10 @@ function tiles() {
           <i className={`fa ${x.symbol} w3-xxxlarge`}></i>
         </div>
         <div className="w3-left">
-          <h6>Routers IN: { inNum }</h6> 
-          <h6>Switches IN: { outNum }</h6>
-          <h6>Servers IN: { outNum }</h6>
+          <h6>Devices IN: { inNum }</h6> 
+          <h6>Devices OUT: { outNum }</h6>
         </div>
-        <div className="w3-clear">
+        <div className="w3-clear w3-center">
           <h4>{x.name}</h4>
         </div>
       </div>
