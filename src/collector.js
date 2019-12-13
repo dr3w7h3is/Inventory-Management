@@ -1,6 +1,6 @@
 var http = require("http");
 var fs = require("fs");
-var dbFile = process.cwd() + "/src/fake-data.json";
+var dbFile = process.cwd() + "/data/fake-data.json";
 
 var db = initdb();
 
