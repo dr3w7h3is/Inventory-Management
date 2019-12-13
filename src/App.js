@@ -44,12 +44,12 @@ class Inventory extends React.Component {
           <td>
             <button onClick={editItem(x.ctrl_num)}>Edit</button>
             <button onClick={() => {
-              // confirmBox('Delete?',
-              //   'Are you sure you want to delete?',
-                // () => {
+              confirmBox('Delete?',
+                'Are you sure you want to delete?',
+                () => {
                   deleteItem(x.ctrl_num).then(()=>this.componentDidMount())
-                // }
-              // )
+                }
+              )
             }}>Delete</button>
           </td>
         </tr>
@@ -61,13 +61,21 @@ class Inventory extends React.Component {
 
 function confirmBox(title, message, onConfirm, onCancel) {
   // BROKEN libraary!?
-  let c = confirmAlert({
+  confirmAlert({
     title: title,
     message: message,
     confirmLabel: 'Yes',                           // Text button confirm
-    cancelLabel: 'Confirm',                             // Text button cancel
-    onConfirm: onConfirm,
-    onCancel: onCancel
+    cancelLabel: 'Confirm',      
+    buttons: [
+      {
+        'label':'Confirm',
+        onClick: onConfirm
+      },
+      {
+        'label': 'Cancel',
+        onClick: onCancel
+      }
+    ]                       // Text button cancel
   })
 }
 
