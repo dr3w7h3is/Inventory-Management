@@ -1,6 +1,8 @@
 var http = require("http");
 var fs = require("fs");
-var dbFile = process.cwd() + "/data/fake-data.json";
+
+var baseDir = process.cwd() + '/data/'
+var dbFile = baseDir + "fake-data.json";
 
 var db = initdb();
 
@@ -37,7 +39,7 @@ http
   .listen(8080);
 
 function handlePost(data) {
-  js = JSON.parse(data);
+  let js = JSON.parse(data);
   var cNum = db.database.length;
   js.ctrl_num = cNum + 1;
   db.database.push(js);
@@ -48,6 +50,8 @@ function initdb() {
   var raw = "";
   if (fs.existsSync(dbFile)) {
     var raw = fs.readFileSync(dbFile, "utf8");
+  } else{
+    fs.mkdirSync(baseDir)
   }
 
   if (raw === "") {
