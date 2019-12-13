@@ -189,7 +189,7 @@ class Manage extends React.Component {
   }
   componentDidMount() { 
     getCategories().then(categories=>{
-      this.setState(categories)
+      this.setState({categories:categories})
     })
   }
 
@@ -203,12 +203,11 @@ class Manage extends React.Component {
             <ul className="no-bullet w3-center">
               <li>
                 <label form="type">Type: </label>
-                <select name="category">
+                <select  id="type" name="type_name">
                   {this.state.categories.map(category=>{
                     return (<option value={category.key}>{category.name}</option>)
                   })}
                 </select>
-                <input type="text" id="type" name="type_name"></input>
               </li>
               <li>
                 <label form="type">Manufacturer: </label>
@@ -235,7 +234,9 @@ class Manage extends React.Component {
                 <input type="text" id="desc" name="desctription"></input>
               </li>
               <li>
-                  <input id="checked_out" type="checkbox" name="checked_out" value="Check Out">Checked Out?</input>
+                <label>Checked Out? 
+                  <input id="checked_out" type="checkbox" name="checked_out" value="Check Out"/>
+                </label>
               </li>
               <li className="w3-center">
                 <button type="submit" onClick={submit}>

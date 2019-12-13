@@ -111,8 +111,8 @@ function handlePost(data) {
 function initdb() {
   var raw = "";
   if (fs.existsSync(dbFile)) {
-    var raw = fs.readFileSync(dbFile, "utf8");
-  } else {
+    raw = fs.readFileSync(dbFile, "utf8");
+  } else if (!fs.existsSync(baseDir)) {
     fs.mkdirSync(baseDir)
   }
 
@@ -127,6 +127,6 @@ function initdb() {
 function delEnrtry(entryNum) {
   var raw = "";
   raw = fs.readFileSync(dbFile, "utf8");
-  recordsDB.database = recordsDB.database.filter(r => r.ctrl_num != entryNum)
+  recordsDB.database = recordsDB.database.filter(r => r.ctrl_num !== entryNum)
   fs.writeFileSync(dbFile, JSON.stringify(recordsDB), "utf8");
 }
