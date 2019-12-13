@@ -12,12 +12,6 @@ const categoryEndPoint = baseAPI + "/category/"
 const lame_and_old_request = require("request");
 
 
-//variables for out and in inventory
-//const total = data.database.length //DEJA TODO: Get this to work and calculate
-const inNum = 43;
-const outNum = 62;
-// Function to loop getting inventory items from database
-
 class Inventory extends React.Component {
   constructor(props) {
     super(props);
@@ -28,6 +22,10 @@ class Inventory extends React.Component {
     getDataDump().then(data => {
       this.setState(data);
     });
+  }
+
+  handleEdit(event) {
+    this.setState(data);
   }
 
   render() {
@@ -70,6 +68,8 @@ function confirmBox(title, message, onConfirm, onCancel) {
     onCancel: onCancel
   })
 }
+
+
 
 
 function editItem(ctrl_num) {
@@ -235,7 +235,7 @@ class Manage extends React.Component {
                 <input type="text" id="desc" name="desctription"></input>
               </li>
               <li>
-                  <input id="checked_out" type="checkbox" name="checked_out" value="Check Out">Checked Out?</input>
+                  <input id="checked_out" type="checkbox" name="checked_out" value="Check Out"></input>
               </li>
               <li className="w3-center">
                 <button type="submit" onClick={submit}>

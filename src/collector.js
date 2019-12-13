@@ -68,11 +68,6 @@ http
       if (req.url.toLowerCase() === "/dump") {
         res.end(JSON.stringify(recordsDB));
       }
-      if (req.url.toLowerCase() === "/remove") {
-        //
-        res.statusCode = 501;
-        res.end();
-      }
       if (req.url.toLowerCase().includes("/category")) {
         var cat = url.parse(req.url).pathname.split('/').pop();
         if (cat === '') {
@@ -100,19 +95,12 @@ function getCategories() {
 
 function handlePost(data) {
   let js = JSON.parse(data);
-<<<<<<< HEAD
   var cNum = recordsDB.database.length;
-  js.ctrl_num = cNum + 1;
-  recordsDB.database.push(js);
-  fs.writeFileSync(dbFile, JSON.stringify(recordsDB), "utf8");
-=======
-  var cNum = db.database.length;
   cNum = Crypto.MD5(data, "secret");
   //Remove slice if longer control number is desired
   js.ctrl_num = cNum.toString().slice(-10);
-  db.database.push(js);
-  fs.writeFileSync(dbFile, JSON.stringify(db), "utf8");
->>>>>>> item-button
+  recordsDB.database.push(js);
+  fs.writeFileSync(dbFile, JSON.stringify(recordsDB), "utf8");
 }
 
 function initdb() {
@@ -134,6 +122,6 @@ function initdb() {
 function delEnrtry(entryNum) {
   var raw = "";
   raw = fs.readFileSync(dbFile, "utf8");
-  db.database = db.database.filter(r => r.ctrl_num != entryNum)
-  fs.writeFileSync(dbFile, JSON.stringify(db), "utf8");
+  recordsDB.database = recordsDB.database.filter(r => r.ctrl_num != entryNum)
+  fs.writeFileSync(dbFile, JSON.stringify(recordsDB), "utf8");
 }
