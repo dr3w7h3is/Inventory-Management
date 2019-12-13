@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+
 import { Link, Route } from "react-router-dom";
 import "./App.css";
 const baseAPI = "http://localhost:8080";
 const postEndPoint = baseAPI;
 const dataDumpEndpoint = baseAPI + "/dump";
 const removeEndPoint = baseAPI + "/remove";
+const categoryEndPoint = baseAPI + "/category/"
 const lame_and_old_request = require("request");
 
 //variables for out and in inventory
@@ -27,7 +29,7 @@ class Inventory extends React.Component {
 
   render() {
     return this.state.database.map(x => (
-      <tbody className="w3-striped">
+      <tbody className="w3-striped" key={x.ctrl_num}>
         <tr>
           <td>{x.ctrl_num}</td>
           <td>{x.type}</td>
@@ -50,6 +52,8 @@ function getDataDump() {
   });
   return fetch(r).then(res => res.json());
 }
+
+
 //Home Page Content
 function Home() {
   return (
@@ -133,52 +137,77 @@ function CheckOut() {
     </div>
   );
 }
-// Function to create elements in Manage page
-function Manage() {
-  return (
-    <div className="main-body w3-container">
-      <h1>Manage</h1>
-      <div className="add-items">
-        <form id="items">
-          <ul className="no-bullet w3-center">
-            <li>
-              <label form="type">Type: </label>
-              <input type="text" id="type" name="type_name"></input>
-            </li>
-            <li>
-              <label form="type">Manufacturer: </label>
-              <input type="text" id="man" name="man_name"></input>
-            </li>
-            <li>
-              <label form="type">Model: </label>
-              <input type="text" id="model" name="model"></input>
-            </li>
-            <li>
-              <label form="type">Serial Number: </label>
-              <input type="text" id="serial" name="serial"></input>
-            </li>
-            <li>
-              <label form="type">Owner: </label>
-              <input type="text" id="owner" name="owner"></input>
-            </li>
-            <li>
-              <label form="type">Location: </label>
-              <input type="text" id="loc" name="location"></input>
-            </li>
-            <li>
-              <label form="type">Description: </label>
-              <input type="text" id="desc" name="desctription"></input>
-            </li>
-            <li className="w3-center">
-              <button type="submit" onClick={submit}>
-                Add
+
+function getCategories(){
+  return getRecordsByCategory('')
+}
+class Manage extends React.Component {
+
+  constructor(props){
+    super(props)
+    this.state = {categories:[]}
+  }
+  componentDidMount() { 
+    getCategories().then(categories=>{
+      this.setState(categories)
+    })
+  }
+
+
+  render() {
+    return (
+      <div className="main-body w3-container">
+        <h1>Manage</h1>
+        <div className="add-items">
+          <form id="items">
+            <ul className="no-bullet w3-center">
+              <li>
+                <label form="type">Type: </label>
+                <select name="category">
+                  {this.state.categories.map(category=>{
+                    return (<option value={category.key}>{category.name}</option>)
+                  })}
+                </select>
+                <input type="text" id="type" name="type_name"></input>
+              </li>
+              <li>
+                <label form="type">Manufacturer: </label>
+                <input type="text" id="man" name="man_name"></input>
+              </li>
+              <li>
+                <label form="type">Model: </label>
+                <input type="text" id="model" name="model"></input>
+              </li>
+              <li>
+                <label form="type">Serial Number: </label>
+                <input type="text" id="serial" name="serial"></input>
+              </li>
+              <li>
+                <label form="type">Owner: </label>
+                <input type="text" id="owner" name="owner"></input>
+              </li>
+              <li>
+                <label form="type">Location: </label>
+                <input type="text" id="loc" name="location"></input>
+              </li>
+              <li>
+                <label form="type">Description: </label>
+                <input type="text" id="desc" name="desctription"></input>
+              </li>
+              <li>
+                  <input id="checked_out" type="checkbox" name="checked_out" value="Check Out">Checked Out?</input>
+              </li>
+              <li className="w3-center">
+                <button type="submit" onClick={submit}>
+                  Add
               </button>
-            </li>
-          </ul>
-        </form>
+              </li>
+            </ul>
+          </form>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 function submit() {
@@ -189,6 +218,7 @@ function submit() {
   var owner = document.getElementById("owner").value;
   var loc = document.getElementById("loc").value;
   var desc = document.getElementById("desc").value;
+  var checked_out = document.getElementById("checked_out").checked;
   var newItem = {
     ctrl_num: "",
     type: type,
@@ -198,6 +228,7 @@ function submit() {
     owner: owner,
     location: loc,
     description: desc,
+    checked_out: checked_out,
     check_out: " "
   };
   newItem = JSON.stringify(newItem);
@@ -206,46 +237,63 @@ function submit() {
   });
 }
 
-// Fucntion for creating tiles elements
-function tiles() {
-  var names = [
-    {
-      name: "Network Equipment",
-      color: "red",
-      symbol: "fa-cloud-download"
-    },
-    {
-      name: "Servers",
-      color: "blue",
-      symbol: "fa-microchip"
-    },
-    {
-      name: "Test Tools",
-      color: "green",
-      symbol: "fa-wrench"
-    },
-    {
-      name: "Simulation Tools",
-      color: "orange",
-      symbol: "fa-users"
-    }
-  ];
-  return names.map(x => (
-    <div className="w3-quarter" key={x.name}>
-      <div className={`w3-container w3-${x.color} w3-padding-16 text-white`}>
+function getRecordsByCategory(category) {
+  let r = new Request(categoryEndPoint + category, {
+    method: "GET",
+    mode: 'cors'
+  })
+  return fetch(r).then(res => {
+    return res.json()
+  })
+}
+class Tile extends React.Component {
+  constructor() {
+    super()
+    this.state = { in: 0, out: 0 }
+  }
+
+  componentDidMount() {
+    getRecordsByCategory(this.props.category).then(data => {
+      let checkedOut = data.filter(record => record.checked_out).length
+      let checkedIn = Math.abs(data.length - checkedOut)
+      this.setState({ in: checkedIn, out: checkedOut })
+    })
+  }
+
+  render() {
+    return (<div className="w3-quarter" key={this.props.name}>
+      <div className={`w3-container w3-${this.props.color} w3-padding-16 text-white`}>
         <div className="w3-left w3-half">
-          <i className={`fa ${x.symbol} w3-xxxlarge`}></i>
+          <i className={`fa ${this.props.symbol} w3-xxxlarge`}></i>
         </div>
         <div className="w3-left">
-          <h6>Devices IN: {inNum}</h6>
-          <h6>Devices OUT: {outNum}</h6>
+          <h6>Devices IN: {this.state.in}</h6>
+          <h6>Devices OUT: {this.state.out}</h6>
         </div>
         <div className="w3-clear w3-center">
-          <h4>{x.name}</h4>
+          <h4>{this.props.name}</h4>
         </div>
       </div>
-    </div>
+    </div>)
+  }
+}
+// Fucntion for creating tiles elements
+
+class Tiles extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {categories:[]}
+  }
+
+  componentDidMount(){
+    getCategories().then(d=>this.setState({categories:d}))
+  }
+
+  render() {
+  return this.state.categories.map(x => (
+    <Tile key={x.key} category={x.key} name={x.name} color={x.color} symbol={x.symbol} />
   ));
+  }
 }
 // Main class for page contruction
 class App extends Component {
@@ -286,7 +334,7 @@ class App extends Component {
           </header>
         </div>
         <div className="quick-look w3-row-padding w3-margin-bottom">
-          {tiles()}
+          <Tiles/ >
         </div>
         <hr></hr>
         <Route path="/home" component={Home} />

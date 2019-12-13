@@ -1,15 +1,44 @@
 var http = require("http");
 var fs = require("fs");
+var url = require('url');
 
 var baseDir = process.cwd() + '/data/'
 var dbFile = baseDir + "fake-data.json";
 
-var db = initdb();
+var recordsDB = initdb();
+
+var categoryDB = [
+  {
+    key:'network',
+    name: 'Network Equipment',
+    color:'red',
+    symbol:'fa-cloud-download'
+  },
+  {
+    key:'server',
+    name: 'Servers',
+    color:'blue',
+    symbol:'fa-microchip'
+  },
+  {
+    key:'test',
+    name: "Test Tools",
+    color:'green',
+    symbol:'fa-wrench'
+  },
+  {
+    key:'simulation',
+    name: "Simulation Tools",
+    color:'orange',
+    symbol:'fa-users'
+  }
+]
+
 
 var data = "";
 http
-  .createServer(function(req, res) {
-    res.setHeader("Content-Type", "application/json" );
+  .createServer(function (req, res) {
+    res.setHeader("Content-Type", "application/json");
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
     let body = "";
 
@@ -24,12 +53,21 @@ http
       });
     } else if (req.method === "GET") {
       if (req.url.toLowerCase() === "/dump") {
-        res.end(JSON.stringify(db));
+        res.end(JSON.stringify(recordsDB));
       }
       if (req.url.toLowerCase() === "/remove") {
         //
         res.statusCode = 501;
         res.end();
+      }
+      if (req.url.toLowerCase().includes("/category")) {
+        var cat = url.parse(req.url).pathname.split('/').pop();
+        if (cat === '') {
+          res.end(JSON.stringify(getCategories()))
+        } else {
+          let records  = getCategory(cat)
+          res.end(JSON.stringify(records));
+        }
       }
     } else {
       res.statusCode = 405;
@@ -38,19 +76,28 @@ http
   })
   .listen(8080);
 
+
+function getCategory(category) {
+  return recordsDB.database.filter(record => record.type === category)
+}
+
+function getCategories() {
+  return categoryDB
+}
+
 function handlePost(data) {
   let js = JSON.parse(data);
-  var cNum = db.database.length;
+  var cNum = recordsDB.database.length;
   js.ctrl_num = cNum + 1;
-  db.database.push(js);
-  fs.writeFileSync(dbFile, JSON.stringify(db), "utf8");
+  recordsDB.database.push(js);
+  fs.writeFileSync(dbFile, JSON.stringify(recordsDB), "utf8");
 }
 
 function initdb() {
   var raw = "";
   if (fs.existsSync(dbFile)) {
     var raw = fs.readFileSync(dbFile, "utf8");
-  } else{
+  } else {
     fs.mkdirSync(baseDir)
   }
 
