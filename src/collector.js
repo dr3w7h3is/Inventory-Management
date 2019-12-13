@@ -1,6 +1,7 @@
 var http = require("http");
 var fs = require("fs");
 var url = require('url');
+var Crypto = require("crypto-js");
 
 var baseDir = process.cwd() + '/data/'
 var dbFile = baseDir + "fake-data.json";
@@ -43,14 +44,26 @@ http
     let body = "";
 
     if (req.method === "POST") {
-      req.on("data", chunk => {
-        body += chunk;
-      });
-      req.on("end", a => {
-        res.write(body);
-        handlePost(body);
-        res.end();
-      });
+      if (req.url.toLowerCase() === "/remove") {
+        req.on("data", chunk => {
+          body += chunk;
+        });
+        req.on("end", a => {
+          res.write(body);
+          delEnrtry(body);
+          res.end();
+        });
+      }
+      if (req.url.toLowerCase() === "/") {
+        req.on("data", chunk => {
+          body += chunk;
+        });
+        req.on("end", a => {
+          res.write(body);
+          handlePost(body);
+          res.end();
+        });
+      }
     } else if (req.method === "GET") {
       if (req.url.toLowerCase() === "/dump") {
         res.end(JSON.stringify(recordsDB));
@@ -87,10 +100,19 @@ function getCategories() {
 
 function handlePost(data) {
   let js = JSON.parse(data);
+<<<<<<< HEAD
   var cNum = recordsDB.database.length;
   js.ctrl_num = cNum + 1;
   recordsDB.database.push(js);
   fs.writeFileSync(dbFile, JSON.stringify(recordsDB), "utf8");
+=======
+  var cNum = db.database.length;
+  cNum = Crypto.MD5(data, "secret");
+  //Remove slice if longer control number is desired
+  js.ctrl_num = cNum.toString().slice(-10);
+  db.database.push(js);
+  fs.writeFileSync(dbFile, JSON.stringify(db), "utf8");
+>>>>>>> item-button
 }
 
 function initdb() {
@@ -107,4 +129,11 @@ function initdb() {
     };
   }
   return typeof raw === "string" ? JSON.parse(raw) : raw;
+}
+
+function delEnrtry(entryNum) {
+  var raw = "";
+  raw = fs.readFileSync(dbFile, "utf8");
+  db.database = db.database.filter(r => r.ctrl_num != entryNum)
+  fs.writeFileSync(dbFile, JSON.stringify(db), "utf8");
 }

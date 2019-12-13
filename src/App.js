@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 
 import { Link, Route } from "react-router-dom";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import "./App.css";
 const baseAPI = "http://localhost:8080";
 const postEndPoint = baseAPI;
@@ -8,6 +10,7 @@ const dataDumpEndpoint = baseAPI + "/dump";
 const removeEndPoint = baseAPI + "/remove";
 const categoryEndPoint = baseAPI + "/category/"
 const lame_and_old_request = require("request");
+
 
 //variables for out and in inventory
 //const total = data.database.length //DEJA TODO: Get this to work and calculate
@@ -38,11 +41,48 @@ class Inventory extends React.Component {
           <td>{x.serial_num}</td>
           <td>{x.owner}</td>
           <td>{x.location}</td>
-          <td>...more</td>
+          <td>
+            <button onClick={editItem(x.ctrl_num)}>Edit</button>
+            <button onClick={() => {
+              // confirmBox('Delete?',
+              //   'Are you sure you want to delete?',
+                // () => {
+                  deleteItem(x.ctrl_num).then(()=>this.componentDidMount())
+                // }
+              // )
+            }}>Delete</button>
+          </td>
         </tr>
       </tbody>
     ));
   }
+}
+
+
+function confirmBox(title, message, onConfirm, onCancel) {
+  // BROKEN libraary!?
+  let c = confirmAlert({
+    title: title,
+    message: message,
+    confirmLabel: 'Yes',                           // Text button confirm
+    cancelLabel: 'Confirm',                             // Text button cancel
+    onConfirm: onConfirm,
+    onCancel: onCancel
+  })
+}
+
+
+function editItem(ctrl_num) {
+
+}
+
+function deleteItem(ctrl_num) {
+  let r = new Request(removeEndPoint, {
+    method: "POST",
+    mode: 'cors',
+    body: ctrl_num
+  });
+  return fetch(r);
 }
 
 function getDataDump() {
@@ -85,7 +125,7 @@ function Equipment() {
             <th>Serial Number</th>
             <th>Owner</th>
             <th>Location</th>
-            <th>Description</th>
+            <th>Options</th>
           </tr>
         </thead>
         <Inventory />
@@ -231,6 +271,7 @@ function submit() {
     checked_out: checked_out,
     check_out: " "
   };
+  //newItem = addHash(newItem);
   newItem = JSON.stringify(newItem);
   lame_and_old_request.post(postEndPoint, {
     body: newItem
