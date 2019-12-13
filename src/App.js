@@ -4,6 +4,7 @@ import { Link, Route } from "react-router-dom";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import "./App.css";
+
 const baseAPI = "http://localhost:8080";
 const postEndPoint = baseAPI;
 const dataDumpEndpoint = baseAPI + "/dump";
@@ -12,11 +13,6 @@ const categoryEndPoint = baseAPI + "/category/"
 const lame_and_old_request = require("request");
 
 
-//variables for out and in inventory
-//const total = data.database.length //DEJA TODO: Get this to work and calculate
-const inNum = 43;
-const outNum = 62;
-// Function to loop getting inventory items from database
 
 class Inventory extends React.Component {
   constructor(props) {
@@ -24,6 +20,10 @@ class Inventory extends React.Component {
     this.state = { database: [] };
   }
 
+  handleChange(){
+    this.props.onDBUpdate()
+    this.componentDidMount()
+  }
   componentDidMount() {
     getDataDump().then(data => {
       this.setState(data);
@@ -47,7 +47,7 @@ class Inventory extends React.Component {
               confirmBox('Delete?',
                 'Are you sure you want to delete?',
                 () => {
-                  deleteItem(x.ctrl_num).then(()=>this.componentDidMount())
+                  deleteItem(x.ctrl_num).then(() => this.handleChange())
                 }
               )
             }}>Delete</button>
@@ -60,15 +60,14 @@ class Inventory extends React.Component {
 
 
 function confirmBox(title, message, onConfirm, onCancel) {
-  // BROKEN libraary!?
   confirmAlert({
     title: title,
     message: message,
     confirmLabel: 'Yes',                           // Text button confirm
-    cancelLabel: 'Confirm',      
+    cancelLabel: 'Confirm',
     buttons: [
       {
-        'label':'Confirm',
+        'label': 'Confirm',
         onClick: onConfirm
       },
       {
@@ -119,27 +118,37 @@ function Home() {
   );
 }
 //Function to create and list items from database
-function Equipment() {
-  return (
-    <div className="main-body w3-container">
-      <h1>Inventory</h1>
-      <table className="w3-table w3-bordered w3-border w3-hoverable w3-white">
-        <thead>
-          <tr>
-            <th>Control Number</th>
-            <th>Type</th>
-            <th>Manufacturer</th>
-            <th>Model</th>
-            <th>Serial Number</th>
-            <th>Owner</th>
-            <th>Location</th>
-            <th>Options</th>
-          </tr>
-        </thead>
-        <Inventory />
-      </table>
-    </div>
-  );
+class Equipment extends React.Component {
+  constructor(props) {
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
+  }
+  handleChange() {
+    this.props.onDBUpdate()
+  }
+
+  render() {
+    return (
+      <div className="main-body w3-container">
+        <h1>Inventory</h1>
+        <table className="w3-table w3-bordered w3-border w3-hoverable w3-white">
+          <thead>
+            <tr>
+              <th>Control Number</th>
+              <th>Type</th>
+              <th>Manufacturer</th>
+              <th>Model</th>
+              <th>Serial Number</th>
+              <th>Owner</th>
+              <th>Location</th>
+              <th>Options</th>
+            </tr>
+          </thead>
+          <Inventory onDBUpdate={this.handleChange}/>
+        </table>
+      </div>
+    );
+  }
 }
 //Calendar Page Content
 function Calendar() {
@@ -186,18 +195,18 @@ function CheckOut() {
   );
 }
 
-function getCategories(){
+function getCategories() {
   return getRecordsByCategory('')
 }
 class Manage extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
-    this.state = {categories:[]}
+    this.state = { categories: [] }
   }
-  componentDidMount() { 
-    getCategories().then(categories=>{
-      this.setState({categories:categories})
+  componentDidMount() {
+    getCategories().then(categories => {
+      this.setState({ categories: categories })
     })
   }
 
@@ -211,8 +220,8 @@ class Manage extends React.Component {
             <ul className="no-bullet w3-center">
               <li>
                 <label form="type">Type: </label>
-                <select  id="type" name="type_name">
-                  {this.state.categories.map(category=>{
+                <select id="type" name="type_name">
+                  {this.state.categories.map(category => {
                     return (<option value={category.key}>{category.name}</option>)
                   })}
                 </select>
@@ -242,8 +251,8 @@ class Manage extends React.Component {
                 <input type="text" id="desc" name="desctription"></input>
               </li>
               <li>
-                <label>Checked Out? 
-                  <input id="checked_out" type="checkbox" name="checked_out" value="Check Out"/>
+                <label>Checked Out?
+                  <input id="checked_out" type="checkbox" name="checked_out" value="Check Out" />
                 </label>
               </li>
               <li className="w3-center">
@@ -330,23 +339,28 @@ class Tile extends React.Component {
 // Fucntion for creating tiles elements
 
 class Tiles extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = {categories:[]}
-  }
-
-  componentDidMount(){
-    getCategories().then(d=>this.setState({categories:d}))
-  }
-
   render() {
-  return this.state.categories.map(x => (
-    <Tile key={x.key} category={x.key} name={x.name} color={x.color} symbol={x.symbol} />
-  ));
+    return this.props.categories.map(x => (
+      <Tile key={x.key} category={x.key} name={x.name} color={x.color} symbol={x.symbol} />
+    ));
   }
 }
 // Main class for page contruction
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.handleDBUpdate = this.handleDBUpdate.bind(this)
+    this.state = { categories: [] }
+  }
+
+
+  componentDidMount(){
+    this.handleDBUpdate()
+  }
+  handleDBUpdate() {
+    getRecordsByCategory('').then(d => this.setState({ categories: d }))
+  }
+
   render() {
     return (
       <div>
@@ -384,14 +398,14 @@ class App extends Component {
           </header>
         </div>
         <div className="quick-look w3-row-padding w3-margin-bottom">
-          <Tiles/ >
+          <Tiles categories={this.state.categories} />
         </div>
         <hr></hr>
         <Route path="/home" component={Home} />
-        <Route path="/equipment" component={Equipment} />
+        <Route path="/equipment" render={(props) => <Equipment onDBUpdate={this.handleDBUpdate} {...props} />} />
         <Route path="/calendar" component={Calendar} />
         <Route path="/checkout" component={CheckOut} />
-        <Route path="/manage" component={Manage} />
+        <Route path="/manage" render={(props) => <Manage onDBUpdate={this.handleDBUpdate} {...props} />} />
         <hr></hr>
         <br></br>
       </div>

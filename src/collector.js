@@ -101,7 +101,7 @@ function getCategories() {
 function handlePost(data) {
   let js = JSON.parse(data);
   var cNum = recordsDB.database.length;
-  cNum = Crypto.MD5(data, "secret");
+  cNum = Crypto.MD5(data.serial_num, "secret");
   //Remove slice if longer control number is desired
   js.ctrl_num = cNum.toString().slice(-10);
   recordsDB.database.push(js);
