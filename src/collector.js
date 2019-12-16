@@ -100,20 +100,35 @@ function handlePost(req, res){
     });
     req.on("end", a => {
       res.write(body);
-      addRecord(body);
+      let added = addRecord(body);
+      if (!added)
+        res.statusCode = 409
+      else
+        res.statusCode = 201
       res.end();
     });
   }
 }
 
+
+function getBySerial(serial) {
+  return recordsDB.database.filter(r=>r.serial_num === serial)
+}
+
+function serialExists(serial){
+  return getBySerial(serial).length>0
+}
+
 function addRecord(data) {
   let js = JSON.parse(data);
+  if (serialExists(js.serial_num)) return false
   var cNum = recordsDB.database.length;
   cNum = Crypto.MD5(js.serial_num, "secret");
   //Remove slice if longer control number is desired
   js.ctrl_num = cNum.toString().slice(-10);
   recordsDB.database.push(js);
   fs.writeFileSync(dbFile, JSON.stringify(recordsDB), "utf8");
+  return true
 }
 
 function initdb() {
