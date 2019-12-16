@@ -306,12 +306,21 @@ function getRecordsByCategory(category) {
   })
 }
 class Tile extends React.Component {
-  constructor() {
+  constructor(props) {
     super()
     this.state = { in: 0, out: 0 }
   }
 
-  componentDidMount() {
+
+  componentDidMount(){
+    this.updateCategories()
+  }
+
+  componentWillReceiveProps(){
+    this.updateCategories()
+  }
+
+  updateCategories(){
     getRecordsByCategory(this.props.category).then(data => {
       let checkedOut = data.filter(record => record.checked_out).length
       let checkedIn = Math.abs(data.length - checkedOut)
