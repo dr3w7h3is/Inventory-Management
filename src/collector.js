@@ -54,13 +54,15 @@ http
 
 
 
+
+
 function handleGet(req, res){
   if (req.url.toLowerCase() === "/dump") {
     res.end(JSON.stringify(recordsDB));
   }
   if (req.url.toLowerCase() === "/remove") {
-    //
-    res.statusCode = 501;
+    var id = url.parse(req.url).pathname.split('/').pop();
+    delEntry(id)
     res.end();
   }
   if (req.url.toLowerCase().includes("/category")) {
@@ -90,7 +92,7 @@ function handlePost(req, res){
     });
     req.on("end", a => {
       res.write(body);
-      delEnrtry(body);
+      delEntry(body);
       res.end();
     });
   }
@@ -147,9 +149,13 @@ function initdb() {
   return typeof raw === "string" ? JSON.parse(raw) : raw;
 }
 
-function delEnrtry(entryNum) {
-  var raw = "";
-  raw = fs.readFileSync(dbFile, "utf8");
-  recordsDB.database = recordsDB.database.filter(r => r.ctrl_num !== entryNum)
-  fs.writeFileSync(dbFile, JSON.stringify(recordsDB), "utf8");
+
+function delEntry(entryNum) {
+  let newDB = recordsDB.database.filter(r => r.ctrl_num !== entryNum)
+  if (newDB.length < recordsDB.database.length) {
+    recordsDB.database = newDB
+    fs.writeFileSync(dbFile, JSON.stringify(recordsDB), "utf8");  
+    return true
+  }
+  else return false
 }
