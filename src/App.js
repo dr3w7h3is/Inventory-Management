@@ -6,7 +6,8 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import "./App.css";
 
 const baseAPI = "http://localhost:8080";
-const postEndPoint = baseAPI;
+const addEndPoint = baseAPI + "/add";
+const loginEndPoint = baseAPI + "/login"
 const dataDumpEndpoint = baseAPI + "/dump";
 const removeEndPoint = baseAPI + "/remove";
 const categoryEndPoint = baseAPI + "/category/"
@@ -232,7 +233,7 @@ class Manage extends React.Component {
     };
     //newItem = addHash(newItem);
     newItem = JSON.stringify(newItem);
-    lame_and_old_request.post(postEndPoint, {
+    lame_and_old_request.post(addEndPoint, {
       body: newItem
     });
   }
