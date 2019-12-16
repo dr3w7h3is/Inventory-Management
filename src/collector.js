@@ -35,53 +35,15 @@ var categoryDB = [
   }
 ]
 
-
-var data = "";
 http
   .createServer(function (req, res) {
     res.setHeader("Content-Type", "application/json");
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
-    let body = "";
 
     if (req.method === "POST") {
-      if (req.url.toLowerCase() === "/remove") {
-        req.on("data", chunk => {
-          body += chunk;
-        });
-        req.on("end", a => {
-          res.write(body);
-          delEnrtry(body);
-          res.end();
-        });
-      }
-      if (req.url.toLowerCase() === "/") {
-        req.on("data", chunk => {
-          body += chunk;
-        });
-        req.on("end", a => {
-          res.write(body);
-          handlePost(body);
-          res.end();
-        });
-      }
+      handlePost(req,res)
     } else if (req.method === "GET") {
-      if (req.url.toLowerCase() === "/dump") {
-        res.end(JSON.stringify(recordsDB));
-      }
-      if (req.url.toLowerCase() === "/remove") {
-        //
-        res.statusCode = 501;
-        res.end();
-      }
-      if (req.url.toLowerCase().includes("/category")) {
-        var cat = url.parse(req.url).pathname.split('/').pop();
-        if (cat === '') {
-          res.end(JSON.stringify(getCategories()))
-        } else {
-          let records  = getCategory(cat)
-          res.end(JSON.stringify(records));
-        }
-      }
+      handleGet(req,res)
     } else {
       res.statusCode = 405;
       res.end();
@@ -89,6 +51,28 @@ http
   })
   .listen(8080);
 
+
+
+
+function handleGet(req, res){
+  if (req.url.toLowerCase() === "/dump") {
+    res.end(JSON.stringify(recordsDB));
+  }
+  if (req.url.toLowerCase() === "/remove") {
+    //
+    res.statusCode = 501;
+    res.end();
+  }
+  if (req.url.toLowerCase().includes("/category")) {
+    var cat = url.parse(req.url).pathname.split('/').pop();
+    if (cat === '') {
+      res.end(JSON.stringify(getCategories()))
+    } else {
+      let records = getCategory(cat)
+      res.end(JSON.stringify(records));
+    }
+  }
+}
 
 function getCategory(category) {
   return recordsDB.database.filter(record => record.type === category)
@@ -98,10 +82,34 @@ function getCategories() {
   return categoryDB
 }
 
-function handlePost(data) {
+function handlePost(req, res){
+  let body='';
+  if (req.url.toLowerCase() === "/remove") {
+    req.on("data", chunk => {
+      body += chunk;
+    });
+    req.on("end", a => {
+      res.write(body);
+      delEnrtry(body);
+      res.end();
+    });
+  }
+  if (req.url.toLowerCase() === "/") {
+    req.on("data", chunk => {
+      body += chunk;
+    });
+    req.on("end", a => {
+      res.write(body);
+      addRecord(body);
+      res.end();
+    });
+  }
+}
+
+function addRecord(data) {
   let js = JSON.parse(data);
   var cNum = recordsDB.database.length;
-  cNum = Crypto.MD5(data.serial_num, "secret");
+  cNum = Crypto.MD5(js.serial_num, "secret");
   //Remove slice if longer control number is desired
   js.ctrl_num = cNum.toString().slice(-10);
   recordsDB.database.push(js);

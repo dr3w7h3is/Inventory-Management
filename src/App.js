@@ -20,7 +20,7 @@ class Inventory extends React.Component {
     this.state = { database: [] };
   }
 
-  handleChange(){
+  handleChange() {
     this.props.onDBUpdate()
     this.componentDidMount()
   }
@@ -144,7 +144,7 @@ class Equipment extends React.Component {
               <th>Options</th>
             </tr>
           </thead>
-          <Inventory onDBUpdate={this.handleChange}/>
+          <Inventory onDBUpdate={this.handleChange} />
         </table>
       </div>
     );
@@ -209,6 +209,33 @@ class Manage extends React.Component {
       this.setState({ categories: categories })
     })
   }
+  submit() {
+    var type = document.getElementById("type").value;
+    var man = document.getElementById("man").value;
+    var model = document.getElementById("model").value;
+    var serial = document.getElementById("serial").value;
+    var owner = document.getElementById("owner").value;
+    var loc = document.getElementById("loc").value;
+    var desc = document.getElementById("desc").value;
+    var checked_out = document.getElementById("checked_out").checked;
+    var newItem = {
+      ctrl_num: "",
+      type: type,
+      manufacturer: man,
+      model: model,
+      serial_num: serial,
+      owner: owner,
+      location: loc,
+      description: desc,
+      checked_out: checked_out,
+      check_out: " "
+    };
+    //newItem = addHash(newItem);
+    newItem = JSON.stringify(newItem);
+    lame_and_old_request.post(postEndPoint, {
+      body: newItem
+    });
+  }
 
 
   render() {
@@ -256,7 +283,7 @@ class Manage extends React.Component {
                 </label>
               </li>
               <li className="w3-center">
-                <button type="submit" onClick={submit}>
+                <button onClick={this.submit}>
                   Add
               </button>
               </li>
@@ -268,33 +295,6 @@ class Manage extends React.Component {
   }
 }
 
-function submit() {
-  var type = document.getElementById("type").value;
-  var man = document.getElementById("man").value;
-  var model = document.getElementById("model").value;
-  var serial = document.getElementById("serial").value;
-  var owner = document.getElementById("owner").value;
-  var loc = document.getElementById("loc").value;
-  var desc = document.getElementById("desc").value;
-  var checked_out = document.getElementById("checked_out").checked;
-  var newItem = {
-    ctrl_num: "",
-    type: type,
-    manufacturer: man,
-    model: model,
-    serial_num: serial,
-    owner: owner,
-    location: loc,
-    description: desc,
-    checked_out: checked_out,
-    check_out: " "
-  };
-  //newItem = addHash(newItem);
-  newItem = JSON.stringify(newItem);
-  lame_and_old_request.post(postEndPoint, {
-    body: newItem
-  });
-}
 
 function getRecordsByCategory(category) {
   let r = new Request(categoryEndPoint + category, {
@@ -312,15 +312,15 @@ class Tile extends React.Component {
   }
 
 
-  componentDidMount(){
+  componentDidMount() {
     this.updateCategories()
   }
 
-  componentWillReceiveProps(){
+  componentWillReceiveProps() {
     this.updateCategories()
   }
 
-  updateCategories(){
+  updateCategories() {
     getRecordsByCategory(this.props.category).then(data => {
       let checkedOut = data.filter(record => record.checked_out).length
       let checkedIn = Math.abs(data.length - checkedOut)
@@ -354,7 +354,7 @@ class Tiles extends React.Component {
     ));
   }
 }
-// Main class for page contruction
+// Main class for page construction
 class App extends Component {
   constructor(props) {
     super(props)
@@ -363,11 +363,11 @@ class App extends Component {
   }
 
 
-  componentDidMount(){
+  componentDidMount() {
     this.handleDBUpdate()
   }
   handleDBUpdate() {
-    getRecordsByCategory('').then(d => this.setState({ categories: d }))
+    getCategories().then(d => this.setState({ categories: d }))
   }
 
   render() {
@@ -382,7 +382,7 @@ class App extends Component {
             <h5>Dashboard</h5>
           </div>
           <div className="w3-bar-block">
-            <Link to="/home" className="w3-bar-item w3-button w3-padding">
+            <Link to="/" className="w3-bar-item w3-button w3-padding">
               <i className="fa fa-home fa-fw"></i> Home
             </Link>
             <Link to="/equipment" className="w3-bar-item w3-button w3-padding">
@@ -410,7 +410,7 @@ class App extends Component {
           <Tiles categories={this.state.categories} />
         </div>
         <hr></hr>
-        <Route path="/home" component={Home} />
+        <Route exact path="/" component={Home} />
         <Route path="/equipment" render={(props) => <Equipment onDBUpdate={this.handleDBUpdate} {...props} />} />
         <Route path="/calendar" component={Calendar} />
         <Route path="/checkout" component={CheckOut} />
