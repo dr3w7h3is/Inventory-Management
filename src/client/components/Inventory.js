@@ -1,6 +1,6 @@
 import React from "react";
 import { editItem, deleteItem, getDataDump } from '../controller/api'
-import confirmBox from '../common'
+import { confirmBox } from '../common'
 
 export class Inventory extends React.Component {
     constructor(props) {
