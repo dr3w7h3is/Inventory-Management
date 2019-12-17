@@ -1,25 +1,30 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [{
-            "type": "chrome",
-            "request": "launch",
-            "name": "Launch Chrome",
-            "url": "http://localhost:3000",
-            "runtimeExecutable": "/usr/lib64/chromium-browser/chromium-browser",
-            "webRoot": "${workspaceFolder}"
-        },
-        {
-            "type": "node",
-            "request": "attach",
-            "name": "Attach",
-            "port": 9228,
-            "skipFiles": [
-                "<node_internals>/**"
-            ]
-        },
-
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "compounds": [
+    {
+      "name": "app+server",
+      "configurations": ["webapp", "server"]
+    }
+  ],
+  "configurations": [
+    {
+      "name": "webapp",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "preLaunchTask": "run dev",
+      "runtimeExecutable": "/usr/lib64/chromium-browser/chromium-browser",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "server",
+      "type": "node",
+      "request": "attach",
+      "port": 9228,
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
 }
