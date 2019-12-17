@@ -284,7 +284,7 @@ class Manage extends React.Component {
                 </label>
               </li>
               <li className="w3-center">
-                <button  onClick={this.submit}>
+                <button onClick={this.submit}>
                   Add
               </button>
               </li>
