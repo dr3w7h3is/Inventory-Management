@@ -209,7 +209,8 @@ class Manage extends React.Component {
       this.setState({ categories: categories })
     })
   }
-  submit() {
+  submit(e) {
+    e.preventDefault()
     var type = document.getElementById("type").value;
     var man = document.getElementById("man").value;
     var model = document.getElementById("model").value;
@@ -233,6 +234,7 @@ class Manage extends React.Component {
     //newItem = addHash(newItem);
     newItem = JSON.stringify(newItem);
     postNewRecord(newItem)
+    return false
   }
 
 
@@ -282,7 +284,7 @@ class Manage extends React.Component {
                 </label>
               </li>
               <li className="w3-center">
-                <button onClick={this.submit}>
+                <button  onClick={this.submit}>
                   Add
               </button>
               </li>
