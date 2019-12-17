@@ -11,7 +11,6 @@ const loginEndPoint = baseAPI + "/login"
 const dataDumpEndpoint = baseAPI + "/dump";
 const removeEndPoint = baseAPI + "/remove";
 const categoryEndPoint = baseAPI + "/category/"
-const lame_and_old_request = require("request");
 
 
 
@@ -233,10 +232,9 @@ class Manage extends React.Component {
     };
     //newItem = addHash(newItem);
     newItem = JSON.stringify(newItem);
-    lame_and_old_request.post(addEndPoint, {
-      body: newItem
-    });
+    postNewRecord(newItem)
   }
+
 
 
   render() {
@@ -295,7 +293,14 @@ class Manage extends React.Component {
     );
   }
 }
-
+function postNewRecord(record) {
+  let r = new Request(addEndPoint, {
+    method: "POST",
+    mode: 'cors',
+    body: record
+  });
+  return fetch(r).then(res => res.json());
+}
 
 function getRecordsByCategory(category) {
   let r = new Request(categoryEndPoint + category, {
