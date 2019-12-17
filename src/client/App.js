@@ -9,15 +9,7 @@ import { Manage } from "./components/Manage";
 import { getCategories } from "./controller/api";
 import { Calendar } from "./components/Calendar";
 import { Home } from "./components/Home";
-
-// Function to create elements in the checkout page
-function CheckOut() {
-  return (
-    <div className="main-body w3-container">
-      <h1>CheckOut</h1>
-    </div>
-  );
-}
+import { CheckOut } from "./components/CheckOut";
 
 // Main class for page construction
 class App extends Component {
