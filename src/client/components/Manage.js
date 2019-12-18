@@ -5,6 +5,7 @@ export class Manage extends React.Component {
         super(props)
         this.handleFormChange = this.handleFormChange.bind(this)
         this.submit = this.submit.bind(this)
+        this.clearForm = this.clearForm.bind(this)
         this.state = { categories: [] }
     }
 
@@ -14,12 +15,22 @@ export class Manage extends React.Component {
         })
     }
 
+
     handleFormChange(e) {
         let value = e.target.value
         if (e.target.type === 'checkbox') {
             value = e.target.checked
         }
         this.setState({ [e.target.id]: value })
+    }
+
+    clearForm() {
+        let copy = {}
+        Object.assign(copy, this.state)
+        let categories = this.state.categories
+        Object.keys(copy).map(key => copy[key] = '')
+        copy.categories = categories
+        this.setState(copy)
     }
 
     submit(e) {
@@ -29,7 +40,7 @@ export class Manage extends React.Component {
         delete stateCopy.categories
         //newItem = addHash(newItem);
         let jstr = JSON.stringify(stateCopy);
-        postNewRecord(jstr)
+        postNewRecord(jstr).then(t => this.clearForm())
         return false
     }
     render() {
@@ -41,7 +52,7 @@ export class Manage extends React.Component {
                         <ul className="no-bullet w3-center">
                             <li>
                                 <label form="type">Type: </label>
-                                <select onChange={this.handleFormChange} id="type" name="type_name">
+                                <select value={this.state.type} onChange={this.handleFormChange} id="type" name="type_name">
                                     {this.state.categories.map(category => {
                                         return (<option value={category.key} key={category.key}>{category.name}</option>)
                                     })}
@@ -49,31 +60,31 @@ export class Manage extends React.Component {
                             </li>
                             <li>
                                 <label form="type">Manufacturer: </label>
-                                <input onChange={this.handleFormChange} type="text" id="manufacturer" name="man_name"></input>
+                                <input value={this.state.manufacturer} onChange={this.handleFormChange} type="text" id="manufacturer" name="man_name"></input>
                             </li>
                             <li>
                                 <label form="type">Model: </label>
-                                <input onChange={this.handleFormChange} type="text" id="model" name="model"></input>
+                                <input value={this.state.model} onChange={this.handleFormChange} type="text" id="model" name="model"></input>
                             </li>
                             <li>
                                 <label form="type">Serial Number: </label>
-                                <input onChange={this.handleFormChange} type="text" id="serial" name="serial"></input>
+                                <input value={this.state.serial} onChange={this.handleFormChange} type="text" id="serial" name="serial"></input>
                             </li>
                             <li>
                                 <label form="type">Owner: </label>
-                                <input onChange={this.handleFormChange} type="text" id="owner" name="owner"></input>
+                                <input value={this.state.owner} onChange={this.handleFormChange} type="text" id="owner" name="owner"></input>
                             </li>
                             <li>
                                 <label form="type">Location: </label>
-                                <input onChange={this.handleFormChange} type="text" id="location" name="location"></input>
+                                <input value={this.state.location} onChange={this.handleFormChange} type="text" id="location" name="location"></input>
                             </li>
                             <li>
                                 <label form="type">Description: </label>
-                                <input onChange={this.handleFormChange} type="text" id="description" name="description"></input>
+                                <input value={this.state.description} onChange={this.handleFormChange} type="text" id="description" name="description"></input>
                             </li>
                             <li>
                                 <label>Checked Out?
-                  <input id="checked_out" onChange={this.handleFormChange} type="checkbox" name="checked_out" value="Check Out" />
+                  <input id="checked_out" onChange={this.handleFormChange} type="checkbox" name="checked_out" checked={this.state.checked_out} />
                                 </label>
                             </li>
                             <li className="w3-center">
