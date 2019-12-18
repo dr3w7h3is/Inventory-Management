@@ -155,8 +155,8 @@ function removeRecord(req, res, method) {
       res.end();
     })
   } else {
-    var id = url.parse(req.url).pathname.split('/').pop();
-    delEntry(id)
+    var ctrl = url.parse(req.url).pathname.split('/').pop();
+    delEntry(ctrl)
     res.end();
   }
 }
@@ -185,7 +185,7 @@ function getCategories() {
 
 
 function getBySerial(serial) {
-  return recordsDB.database.filter(r => r.serial_num === serial)
+  return recordsDB.database.filter(r => r.serial === serial)
 }
 
 function serialExists(serial) {
@@ -194,12 +194,12 @@ function serialExists(serial) {
 
 function processAddRecord(data) {
   let js = JSON.parse(data);
-  js.serial_num = js.serial_num.trim()
-  if (serialExists(js.serial_num)) return false
+  js.serial = js.serial.trim()
+  if (serialExists(js.serial)) return false
   var cNum = recordsDB.database.length;
-  cNum = crypto.createHash('md5').update(js.serial_num).digest('hex');
+  cNum = crypto.createHash('md5').update(js.serial).digest('hex');
   //Remove slice if longer control number is desired
-  js.ctrl_num = cNum.toString().slice(-10);
+  js.ctrl = cNum.toString().slice(-10);
   recordsDB.database.push(js);
   fs.writeFileSync(dbFile, JSON.stringify(recordsDB), "utf8");
   return true
@@ -209,7 +209,7 @@ function processAddRecord(data) {
 
 
 function delEntry(entryNum) {
-  let newDB = recordsDB.database.filter(r => r.ctrl_num !== entryNum)
+  let newDB = recordsDB.database.filter(r => r.ctrl !== entryNum)
   if (newDB.length < recordsDB.database.length) {
     recordsDB.database = newDB
     fs.writeFileSync(dbFile, JSON.stringify(recordsDB), "utf8");
