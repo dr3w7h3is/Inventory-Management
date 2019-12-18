@@ -1,19 +1,51 @@
 require('dotenv').config()
-var http = require("http");
-var fs = require("fs");
-var url = require('url');
+const http = require("http");
+const fs = require("fs");
+const url = require('url');
+const crypto = require('crypto')
+const express = require('express')
 
-var crypto = require('crypto')
-var baseDir = process.cwd() + '/data/'
-var dbFile = baseDir + "fake-data.json";
-var userDbFile = baseDir + "users.json"
-var groupDbFile = baseDir + "groups.json"
+const baseDir = process.cwd() + '/data/'
+const dbFile = baseDir + "fake-data.json";
+const userDbFile = baseDir + "users.json"
+const groupDbFile = baseDir + "groups.json"
 
 var recordsDB = init(dbFile, { database: [] });
 var usersDB = init(userDbFile, { users: [] });
 var groupsDB = init(groupDbFile, { groups: [] });
 
+const port = 8080
+const app = express()
 
+app.use(corsHeader)
+app.use(authenticate)
+
+function corsHeader(req, res, next) {
+  // res.setHeader("Content-Type", "application/json");
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
+  next()
+}
+
+function authenticate(req, res, next) {
+  let authorized = true
+  if (authorized) {
+    next()
+  } else {
+    res.statusCode = 401
+  }
+}
+
+app.post('/login', login)
+app.post('/dump', dumpDB)
+app.get('/dump', dumpDB)
+app.post('/add', addRecord)
+app.get('/remove', (req, res) => removeRecord(req, res, "GET"))
+app.post('/remove', (req, res) => removeRecord(req, res, "POST"))
+app.get('/category', queryCategory)
+app.get('/category/:category', queryCategory)
+app.post('/edit', editRecord)
+
+app.listen(port)
 
 var jwtHead = JSON.stringify({ alg: "HS256", typ: "JWT" })
   .toString('base64')
@@ -60,51 +92,6 @@ var categoryDB = [
     symbol: 'fa-users'
   }
 ]
-
-let endpoints = [{
-  path: "/login",
-  get: null,
-  post: login
-}, {
-  path: "/dump",
-  post: dumpDB,
-  get: dumpDB
-}, {
-  path: "/add",
-  post: addRecord,
-  get: null
-}, {
-  path: "/remove",
-  post: (req, res) => removeRecord(req, res, "POST"),
-  get: (req, res) => removeRecord(req, res, "GET"),
-}, {
-  path: "/category",
-  post: null,
-  get: queryCategory
-}, {
-  path: "/edit",
-  post: editRecord,
-  get: null
-}]
-
-
-http
-  .createServer(function (req, res) {
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
-
-    let endpoint = endpoints.find(e =>
-      req.url.toLowerCase().includes(e.path))
-    if (req.method === "POST" && endpoint.post != null) {
-      endpoint.post(req, res)
-    } else if (req.method === "GET" && endpoint.get != null) {
-      endpoint.get(req, res)
-    } else {
-      res.statusCode = 405;
-      res.end();
-    }
-  })
-  .listen(8080);
 
 
 function login(req, res) {
