@@ -96,7 +96,7 @@ class RecordItem extends React.Component {
                     <td><input type="text" onChange={this.handleEdit} onKeyPress={this.handleSubmit}
                         name="location" id="location" value={this.state.record.location} /></td>
                     <td>
-                        <button onClick={this.handleEditClick}>Edit</button>
+                    <button onClick={() => {this.handleSubmit({charCode: 13})}}>Save</button>
                         <button onClick={() => {
                             confirmBox('Delete?',
                                 'Are you sure you want to delete?',
