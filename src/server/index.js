@@ -81,6 +81,10 @@ let endpoints = [{
   path: "/category",
   post: null,
   get: queryCategory
+}, {
+  path: "/edit",
+  post: editRecord,
+  get: null
 }]
 
 
@@ -116,6 +120,8 @@ function login(req, res) {
   })
 }
 
+
+
 function signToken(head, body) {
   let s = crypto.createHmac('SHA256', process.env.SIGNING_SECRET)
     .update(head + '.' + body)
@@ -147,6 +153,11 @@ function genericPostBody(req, onEnd) {
   req.on("end", a => { onEnd(body) })
 }
 
+function genericJSONBody(req, onEnd) {
+  genericPostBody(req, (body) => onEnd(JSON.parse(body)))
+}
+
+
 function removeRecord(req, res, method) {
   if (method === "POST") {
     genericPostBody(req, body => {
@@ -155,17 +166,25 @@ function removeRecord(req, res, method) {
       res.end();
     })
   } else {
-    var id = url.parse(req.url).pathname.split('/').pop();
-    delEntry(id)
+    var ctrl = url.parse(req.url).pathname.split('/').pop();
+    delEntry(ctrl)
     res.end();
   }
 }
 
+function editRecord(req, res) {
+  genericJSONBody(req, js => {
+    res.write(JSON.stringify(js));
+    delEntry(js.ctrl)
+    processAddRecord(js)
+    res.end();
+  })
+}
+
 function addRecord(req, res) {
-  let body = '';
-  genericPostBody(req, body => {
-    res.write(body);
-    let added = processAddRecord(body);
+  genericJSONBody(req, js => {
+    res.write(JSON.stringify(js));
+    let added = processAddRecord(js);
     if (!added)
       res.statusCode = 409
     else
@@ -185,21 +204,20 @@ function getCategories() {
 
 
 function getBySerial(serial) {
-  return recordsDB.database.filter(r => r.serial_num === serial)
+  return recordsDB.database.filter(r => r.serial === serial)
 }
 
 function serialExists(serial) {
   return getBySerial(serial).length > 0
 }
 
-function processAddRecord(data) {
-  let js = JSON.parse(data);
-  js.serial_num = js.serial_num.trim()
-  if (serialExists(js.serial_num)) return false
+function processAddRecord(js) {
+  js.serial = js.serial.trim()
+  if (serialExists(js.serial)) return false
   var cNum = recordsDB.database.length;
-  cNum = crypto.createHash('md5').update(js.serial_num).digest('hex');
+  cNum = crypto.createHash('md5').update(js.serial).digest('hex');
   //Remove slice if longer control number is desired
-  js.ctrl_num = cNum.toString().slice(-10);
+  js.ctrl = cNum.toString().slice(-10);
   recordsDB.database.push(js);
   fs.writeFileSync(dbFile, JSON.stringify(recordsDB), "utf8");
   return true
@@ -208,8 +226,8 @@ function processAddRecord(data) {
 
 
 
-function delEntry(entryNum) {
-  let newDB = recordsDB.database.filter(r => r.ctrl_num !== entryNum)
+function delEntry(ctrl) {
+  let newDB = recordsDB.database.filter(r => r.ctrl !== ctrl)
   if (newDB.length < recordsDB.database.length) {
     recordsDB.database = newDB
     fs.writeFileSync(dbFile, JSON.stringify(recordsDB), "utf8");

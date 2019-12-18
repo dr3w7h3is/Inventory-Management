@@ -7,68 +7,10 @@ import { Tiles } from "./components/Tiles";
 import { Equipment } from "./components/Equipment";
 import { Manage } from "./components/Manage";
 import { getCategories } from "./controller/api";
-
-//Home Page Content
-function Home() {
-  return (
-    <div className="main-body w3-container">
-      <h1>Home</h1>
-      <p>Welcome to MCNEL's Inventory Management System</p>
-      <p>
-        This system is designed to manage the inventory of items within MCNEL.
-      </p>
-      <p>Network Equipment includes ...</p>
-      <p>Test tools includes ... </p>
-      <p>Simulation Equipment includes ...</p>
-      <p>POC: Deja Hansen</p>
-    </div>
-  );
-}
-//Calendar Page Content
-function Calendar() {
-  return (
-    <div className="main-body w3-container">
-      <h1>Calendar</h1>
-      <div className="month">
-        <ul>
-          <li className="prev">&#10094;</li>
-          <li className="next">&#10095;</li>
-          <li>
-            November<br></br>
-            <span>2019</span>
-          </li>
-        </ul>
-      </div>
-      <ul className="weekdays">
-        <li>Mon</li>
-        <li>Tues</li>
-        <li>Wed</li>
-        <li>Thurs</li>
-        <li>Fri</li>
-        <li>Sat</li>
-        <li>Sun</li>
-      </ul>
-      <ul className="days">
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-        <li>6</li>
-        <li>7</li>
-      </ul>
-    </div>
-  );
-}
-// Function to create elements in the checkout page
-function CheckOut() {
-  return (
-    <div className="main-body w3-container">
-      <h1>CheckOut</h1>
-    </div>
-  );
-}
-
+import { Calendar } from "./components/Calendar";
+import { Home } from "./components/Home";
+import { CheckOut } from "./components/CheckOut";
+import { Login } from "./components/Login"
 // Main class for page construction
 class App extends Component {
   constructor(props) {
@@ -90,6 +32,7 @@ class App extends Component {
       <div>
         <div className="w3-bar w3-top w3-black w3-large">
           <span className="w3-bar-item w3-right">MCTSSA</span>
+          <Link to="/login" className="w3-bar-item w3-right">Login</Link>
         </div>
         <nav className="w3-sidebar w3-collapse w3-light-gray" id="mySidebar">
           <br></br>
@@ -129,6 +72,7 @@ class App extends Component {
         <Route path="/equipment" render={(props) => <Equipment onDBUpdate={this.handleDBUpdate} {...props} />} />
         <Route path="/calendar" component={Calendar} />
         <Route path="/checkout" component={CheckOut} />
+        <Route path="/login" render={(props) => <Login {...props} />} />
         <Route path="/manage" render={(props) => <Manage onDBUpdate={this.handleDBUpdate} {...props} />} />
         <hr></hr>
         <br></br>

@@ -1,13 +1,23 @@
 
+const crypto = require('crypto')
+
+const loginhash = crypto.createHash('sha256')
+
 const baseAPI = "http://localhost:8080";
 const addEndPoint = baseAPI + "/add";
+const editEndPoint = baseAPI + "/edit";
 const loginEndPoint = baseAPI + "/login"
 const dataDumpEndpoint = baseAPI + "/dump";
 const removeEndPoint = baseAPI + "/remove";
 const categoryEndPoint = baseAPI + "/category/"
 
+
 export function getCategories() {
     return getRecordsByCategory('');
+}
+
+export function doLogin(username, password) {
+
 }
 export function getRecordsByCategory(category) {
     let r = new Request(categoryEndPoint + category, {
@@ -18,7 +28,13 @@ export function getRecordsByCategory(category) {
         return res.json()
     })
 }
-export function editItem(id) {
+export function editItem(record) {
+    let r = new Request(editEndPoint, {
+        method: "POST",
+        mode: 'cors',
+        body: record
+    })
+    return fetch(r).then(res => res.json());
 
 }
 export function postNewRecord(record) {
@@ -30,11 +46,11 @@ export function postNewRecord(record) {
     return fetch(r).then(res => res.json());
 }
 
-export function deleteItem(ctrl_num) {
+export function deleteItem(ctrl) {
     let r = new Request(removeEndPoint, {
         method: "POST",
         mode: 'cors',
-        body: ctrl_num
+        body: ctrl
     });
     return fetch(r);
 }
