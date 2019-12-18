@@ -155,8 +155,8 @@ function removeRecord(req, res, method) {
       res.end();
     })
   } else {
-    var id = url.parse(req.url).pathname.split('/').pop();
-    delEntry(id)
+    var ctrl = url.parse(req.url).pathname.split('/').pop();
+    delEntry(ctrl)
     res.end();
   }
 }
