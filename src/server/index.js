@@ -17,55 +17,6 @@ var groupsDB = init(groupDbFile, { groups: [] });
 const port = 8080
 const app = express()
 
-app.use(corsHeader)
-app.use(authenticate)
-
-function corsHeader(req, res, next) {
-  // res.setHeader("Content-Type", "application/json");
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
-  next()
-}
-
-function authenticate(req, res, next) {
-  let authorized = true
-  if (authorized) {
-    next()
-  } else {
-    res.statusCode = 401
-  }
-}
-
-app.post('/login', login)
-app.post('/dump', dumpDB)
-app.get('/dump', dumpDB)
-app.post('/add', addRecord)
-app.get('/remove', (req, res) => removeRecord(req, res, "GET"))
-app.post('/remove', (req, res) => removeRecord(req, res, "POST"))
-app.get('/category', queryCategory)
-app.get('/category/:category', queryCategory)
-app.post('/edit', editRecord)
-
-app.listen(port)
-
-var jwtHead = JSON.stringify({ alg: "HS256", typ: "JWT" })
-  .toString('base64')
-  .replace(/=/g, "")
-  .replace(/\+/g, "-")
-  .replace(/\//g, "_");
-
-function init(file, def) {
-  var raw = '';
-  if (fs.existsSync(file)) {
-    raw = fs.readFileSync(file, 'utf8');
-  } else if (!fs.existsSync(baseDir))
-    fs.mkdirSync(baseDir);
-  if (raw === '')
-    raw = def;
-  return typeof raw === 'string' ? JSON.parse(raw) : raw
-}
-
-
-
 var categoryDB = [
   {
     key: 'network',
@@ -94,6 +45,56 @@ var categoryDB = [
 ]
 
 
+app.use(corsHeader)
+app.use(authenticate)
+app.post('/login', login)
+app.get('/dump', dumpDB)
+app.post('/add', addRecord)
+app.get('/remove', (req, res) => removeRecord(req, res, "GET"))
+app.post('/remove', (req, res) => removeRecord(req, res, "POST"))
+app.get('/category', (req, res) => res.end(JSON.stringify(getCategories())))
+app.get('/category/:category', (req, res) => res.end(JSON.stringify(getCategory(req.params.category))))
+app.post('/edit', editRecord)
+
+app.listen(port)
+
+
+function corsHeader(req, res, next) {
+  // res.setHeader("Content-Type", "application/json");
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
+  next()
+}
+
+function authenticate(req, res, next) {
+  let authorized = true
+  if (authorized) {
+    next()
+  } else {
+    res.statusCode = 401
+  }
+}
+
+var jwtHead = JSON.stringify({ alg: "HS256", typ: "JWT" })
+  .toString('base64')
+  .replace(/=/g, "")
+  .replace(/\+/g, "-")
+  .replace(/\//g, "_");
+
+function init(file, def) {
+  var raw = '';
+  if (fs.existsSync(file)) {
+    raw = fs.readFileSync(file, 'utf8');
+  } else if (!fs.existsSync(baseDir))
+    fs.mkdirSync(baseDir);
+  if (raw === '')
+    raw = def;
+  return typeof raw === 'string' ? JSON.parse(raw) : raw
+}
+
+
+
+
+
 function login(req, res) {
   genericPostBody(req, body => {
     let verified = false   //Placeholder
@@ -119,15 +120,6 @@ function signToken(head, body) {
   return s
 }
 
-function queryCategory(req, res) {
-  var cat = url.parse(req.url).pathname.split('/').pop();
-  if (cat === '') {
-    res.end(JSON.stringify(getCategories()))
-  } else {
-    let records = getCategory(cat)
-    res.end(JSON.stringify(records));
-  }
-}
 
 function dumpDB(req, res) {
   res.end(JSON.stringify(recordsDB))
@@ -209,8 +201,6 @@ function processAddRecord(js) {
   fs.writeFileSync(dbFile, JSON.stringify(recordsDB), "utf8");
   return true
 }
-
-
 
 
 function delEntry(ctrl) {
