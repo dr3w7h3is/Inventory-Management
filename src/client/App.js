@@ -10,7 +10,7 @@ import { getCategories } from "./controller/api";
 import { Calendar } from "./components/Calendar";
 import { Home } from "./components/Home";
 import { CheckOut } from "./components/CheckOut";
-
+import { Login } from "./components/Login"
 // Main class for page construction
 class App extends Component {
   constructor(props) {
@@ -32,6 +32,7 @@ class App extends Component {
       <div>
         <div className="w3-bar w3-top w3-black w3-large">
           <span className="w3-bar-item w3-right">MCTSSA</span>
+          <Link to="/login" className="w3-bar-item w3-right">Login</Link>
         </div>
         <nav className="w3-sidebar w3-collapse w3-light-gray" id="mySidebar">
           <br></br>
@@ -71,6 +72,7 @@ class App extends Component {
         <Route path="/equipment" render={(props) => <Equipment onDBUpdate={this.handleDBUpdate} {...props} />} />
         <Route path="/calendar" component={Calendar} />
         <Route path="/checkout" component={CheckOut} />
+        <Route path="/login" render={(props) => <Login {...props} />} />
         <Route path="/manage" render={(props) => <Manage onDBUpdate={this.handleDBUpdate} {...props} />} />
         <hr></hr>
         <br></br>

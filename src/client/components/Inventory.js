@@ -20,22 +20,22 @@ export class Inventory extends React.Component {
 
     render() {
         return this.state.database.map(x => (
-            <tbody className="w3-striped" key={x.ctrl_num}>
+            <tbody className="w3-striped" key={x.ctrl}>
                 <tr>
-                    <td>{x.ctrl_num}</td>
+                    <td>{x.ctrl}</td>
                     <td>{x.type}</td>
                     <td>{x.manufacturer}</td>
                     <td>{x.model}</td>
-                    <td>{x.serial_num}</td>
+                    <td>{x.serial}</td>
                     <td>{x.owner}</td>
                     <td>{x.location}</td>
                     <td>
-                        <button onClick={editItem(x.ctrl_num)}>Edit</button>
+                        <button onClick={editItem(x.ctrl)}>Edit</button>
                         <button onClick={() => {
                             confirmBox('Delete?',
                                 'Are you sure you want to delete?',
                                 () => {
-                                    deleteItem(x.ctrl_num).then(() => this.handleChange())
+                                    deleteItem(x.ctrl).then(() => this.handleChange())
                                 }
                             )
                         }}>Delete</button>

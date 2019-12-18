@@ -3,38 +3,33 @@ import { getCategories, postNewRecord } from '../controller/api'
 export class Manage extends React.Component {
     constructor(props) {
         super(props)
+        this.handleFormChange = this.handleFormChange.bind(this)
+        this.submit = this.submit.bind(this)
         this.state = { categories: [] }
     }
+
     componentDidMount() {
         getCategories().then(categories => {
             this.setState({ categories: categories })
         })
     }
+
+    handleFormChange(e) {
+        let value = e.target.value
+        if (e.target.type === 'checkbox') {
+            value = e.target.checked
+        }
+        this.setState({ [e.target.id]: value })
+    }
+
     submit(e) {
         e.preventDefault()
-        var type = document.getElementById("type").value;
-        var man = document.getElementById("man").value;
-        var model = document.getElementById("model").value;
-        var serial = document.getElementById("serial").value;
-        var owner = document.getElementById("owner").value;
-        var loc = document.getElementById("loc").value;
-        var desc = document.getElementById("desc").value;
-        var checked_out = document.getElementById("checked_out").checked;
-        var newItem = {
-            ctrl_num: "",
-            type: type,
-            manufacturer: man,
-            model: model,
-            serial_num: serial,
-            owner: owner,
-            location: loc,
-            description: desc,
-            checked_out: checked_out,
-            check_out: " "
-        };
+        let stateCopy = {}
+        Object.assign(stateCopy, this.state)
+        delete stateCopy.categories
         //newItem = addHash(newItem);
-        newItem = JSON.stringify(newItem);
-        postNewRecord(newItem)
+        let jstr = JSON.stringify(stateCopy);
+        postNewRecord(jstr)
         return false
     }
     render() {
@@ -46,43 +41,43 @@ export class Manage extends React.Component {
                         <ul className="no-bullet w3-center">
                             <li>
                                 <label form="type">Type: </label>
-                                <select id="type" name="type_name">
+                                <select onChange={this.handleFormChange} id="type" name="type_name">
                                     {this.state.categories.map(category => {
-                                        return (<option value={category.key}>{category.name}</option>)
+                                        return (<option value={category.key} key={category.key}>{category.name}</option>)
                                     })}
                                 </select>
                             </li>
                             <li>
                                 <label form="type">Manufacturer: </label>
-                                <input type="text" id="man" name="man_name"></input>
+                                <input onChange={this.handleFormChange} type="text" id="manufacturer" name="man_name"></input>
                             </li>
                             <li>
                                 <label form="type">Model: </label>
-                                <input type="text" id="model" name="model"></input>
+                                <input onChange={this.handleFormChange} type="text" id="model" name="model"></input>
                             </li>
                             <li>
                                 <label form="type">Serial Number: </label>
-                                <input type="text" id="serial" name="serial"></input>
+                                <input onChange={this.handleFormChange} type="text" id="serial" name="serial"></input>
                             </li>
                             <li>
                                 <label form="type">Owner: </label>
-                                <input type="text" id="owner" name="owner"></input>
+                                <input onChange={this.handleFormChange} type="text" id="owner" name="owner"></input>
                             </li>
                             <li>
                                 <label form="type">Location: </label>
-                                <input type="text" id="loc" name="location"></input>
+                                <input onChange={this.handleFormChange} type="text" id="location" name="location"></input>
                             </li>
                             <li>
                                 <label form="type">Description: </label>
-                                <input type="text" id="desc" name="desctription"></input>
+                                <input onChange={this.handleFormChange} type="text" id="description" name="description"></input>
                             </li>
                             <li>
                                 <label>Checked Out?
-                  <input id="checked_out" type="checkbox" name="checked_out" value="Check Out" />
+                  <input id="checked_out" onChange={this.handleFormChange} type="checkbox" name="checked_out" value="Check Out" />
                                 </label>
                             </li>
                             <li className="w3-center">
-                                <button onClick={this.submit}>
+                                <button type="submit" onClick={this.submit}>
                                     Add
               </button>
                             </li>
