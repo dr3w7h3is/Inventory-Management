@@ -12,6 +12,7 @@ export class Manage extends React.Component {
     componentDidMount() {
         getCategories().then(categories => {
             this.setState({ categories: categories })
+            this.setState({type: categories[0].key})
         })
     }
 
@@ -35,7 +36,7 @@ export class Manage extends React.Component {
 
     submit(e) {
         e.preventDefault()
-        let stateCopy = {}
+        let stateCopy =   {}
         Object.assign(stateCopy, this.state)
         delete stateCopy.categories
         //newItem = addHash(newItem);
